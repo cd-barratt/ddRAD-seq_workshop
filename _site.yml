@@ -9,12 +9,22 @@ navbar:
     href: index.html
   - text: Tutorials
     menu:
-    - text: 03 - 03_Admixture
+    - text: 01 - Downloading data from ENA
+      href: 01_ENA_download.html
+    - text: 02a - Demultiplexing sequencing data (process_radtags)
+      href: 02a_process_radtags.html
+    - text: 02b - Running Stacks 2 (denovo_map)
+      href: 02b_denovo_map.html
+    - text: 03 - Population structure (Admixture)
       href: 03_Admixture.html
-    - text: 04 - 04_sNMF
+    - text: 04 - Population structure (sNMF)
       href: 04_sNMF.html
-    - text: 05 - 05_DAPC
+    - text: 05 - Population structure (DAPC)
       href: 05_DAPC.html
+    - text: 06 - Phylogentic relationships (RAxML)
+      href: 06_RAxML.html  
+    - text: 07 - Genetic Diversity)
+      href: 07_Fstats.html   
   right:
   - text: GitHub
     href: https://github.com/cd-barratt/ddRAD-seq_workshop/
