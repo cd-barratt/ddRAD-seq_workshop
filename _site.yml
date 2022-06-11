@@ -1,0 +1,25 @@
+name: Estimating_genetic_diversity_and_population_information_from_short_read_(ddRAD-seq)_type_data
+output_dir: docs
+navbar:
+  title: Estimating_genetic_diversity_and_population_information_from_short_read_(ddRAD-seq)_type_data
+  type: inverse
+  left:
+  - text: Home
+    icon: fa-home
+    href: index.html
+  - text: Tutorials
+    menu:
+    - text: 03 - 03_Admixture
+      href: 03_Admixture.html
+    - text: 04 - 04_sNMF
+      href: 04_sNMF.html
+    - text: 05 - 05_DAPC
+      href: 05_DAPC.html
+  right:
+  - text: GitHub
+    href: https://github.com/cd-barratt/Estimating_genetic_diversity_and_population_information_from_short_read_(ddRAD-seq)_type_data/
+output:
+  html_document:
+    lib_dir: site_libs
+    self_contained: no
+
