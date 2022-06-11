@@ -12,6 +12,8 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
                       tidy = TRUE, collapse = TRUE,
                       results = 'hold')
 ```
+\
+\
 
 ### Timings 
 
@@ -23,6 +25,8 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
 
 All done in R locally on your machine
 
+\
+\
 
 ### Other info
 - If you are on a PC, directory paths need to be separated by back-slashes instead of forward-slashes
@@ -42,7 +46,8 @@ library(LEA) # using v 2.0.0
 
 ```
 
-
+\
+\
 
 ### 2. Load data
 Load the .ped input file that we will analyse. This is a matrix (rows = number of individual samples, columns = genotypes at each locus). The first 6 columns are mandatory (family, individual, maternal/paternal IDs, Sex abd Phenotype). We actually only have the individual IDs so the others are defaulted out. You can read more about this PLNK, format here: https://zzz.bwh.harvard.edu/plink/data.shtml
@@ -54,6 +59,8 @@ output = ped2geno('./data/L_flavomaculatus/Inputs/sNMF/Lflav.ped')
 species <- read.geno('./data/L_flavomaculatus/Inputs/sNMF/Lflav.geno') 
 ```
 
+\
+\
 
 ### 3. Run sNMF
 We can give sNMF a range of K to test, so let's follow 1:10 like we did in Admixture so that we have comparable results. Here we set the ploidy to 2 (diploid organism, having 5 repetitions of each K value to test, so 50 total reps). We set entropy=T and project='new'). There are a bunch of things you can tweak (see here: http://membres-timc.imag.fr/Olivier.Francois/snmf/files/note.pdf) but let's keep this simple. Current settings here will take around 3-4 mins to complete
@@ -65,7 +72,10 @@ k_range <- 1:10
 species.snmf <- snmf(('./data/L_flavomaculatus/Inputs/sNMF/Lflav.geno'), K = k_range, entropy = T, ploidy = 2, rep=5, project = 'new')  
 ```
 
-###4. Plot CV scores
+\
+\
+
+### 4. Plot CV scores
 We will first set the plot margins and then set an output file (png) with specific sizes and resolutions
 Then we plot the results (first points, then a line to join the points) and save the file
 ```{r}
@@ -79,6 +89,9 @@ plot(sumpr, lty=2, lwd = 1.5, col = 'black', pch=19, cex=0.5, xlab= 'k clusters'
 lines(sumpr, lwd=2, col='steelblue2')
 dev.off()
 ```
+
+\
+\
 
 ### 5. Make barplot of sNMF results
 
@@ -132,7 +145,8 @@ dev.off()
 
 ```
 
-
+\
+\
 
 ### On your own...
 

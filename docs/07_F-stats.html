@@ -11,7 +11,7 @@
 
 
 
-<title>Tutorial: snMF</title>
+<title>Tutorial: F-statistics</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -297,7 +297,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Tutorial: snMF</h1>
+<h1 class="title toc-ignore">Tutorial: F-statistics</h1>
 
 </div>
 
@@ -308,139 +308,40 @@ $(document).ready(function () {
 <div id="timings" class="section level3">
 <h3>Timings</h3>
 <ol style="list-style-type: decimal">
-<li>Initial setup and package install (&lt;1 min)</li>
-<li>Load data (&lt; 1 min)</li>
-<li>Run sNMF (3-4 mins)</li>
-<li>Plot CV scores (&lt; 1 min)</li>
-<li>Make barplot of Admixture results (&lt; 1 min)</li>
+<li>Re-reun populations of Stacks 2 to get FST and nucleotide diversity estimates per population</li>
 </ol>
-<p>All done in R locally on your machine</p>
+<p>All done in EVE cluster</p>
 <p><br />
 <br />
 </p>
 </div>
-<div id="other-info" class="section level3">
-<h3>Other info</h3>
-<ul>
-<li>If you are on a PC, directory paths need to be separated by back-slashes instead of forward-slashes</li>
-<li>Try not to resize windows/display panels while R is busy calculating/plotting - this tends to cause problems</li>
-</ul>
-</div>
-<div id="initial-setup-and-package-install" class="section level3">
-<h3>1. Initial setup and package install</h3>
-<p>The following block of code will install all required R packages for this tutorial, you can copy and paste this in your R Studio and run it. All of this code works with the latest R version (4.1.0), and possibly older ones (e.g. 3.5.0), but I cannot guarantee it will work, so best to have R v.4.1.0.</p>
-<pre class="r"><code>rm(list = ls(all = TRUE))
+<div id="run-f-stats" class="section level3">
+<h3>1. Run F-stats</h3>
+<p>#This is all done in the EVE cluster, will be fairly quick (ca. 10 mins)</p>
+<pre class="r"><code>
+### RAxML
+#!/bin/bash                                                                                                                            
+#SBATCH --job-name=RAxML
+#SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
+#SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
+#SBATCH --chdir /data/barratt  
+#SBATCH --output=/work/barratt/Workshop_3/job_logs/%x-%j.log
+#SBATCH --cpus-per-task=1 
+#SBATCH --mem-per-cpu=20G
+#SBATCH --time=12:00:00
 
-setwd(&quot;./data/L_flavomaculatus/Outputs/sNMF/&quot;)
+#load environment
+module purge 
+module load GCC/10.2.0
+module load OpenMPI/4.0.5
+module load RAxML/8.2.12-hybrid-avx2
 
-# Load packages install.packages(&#39;LEA&#39;)
-library(LEA)  # using v 2.0.0
+cd ~/work/Workshop_3/Leptopelis_flavomaculatus/Inputs/RAxML/
+
+# 100 bootstraps
+raxmlHPC -f a -m GTRCAT -p 12345 -x 12345 -# 100 -s  ~/work/Workshop_3/Leptopelis_flavomaculatus/Inputs/RAxML/Lflavomaculatus.phy ­­asc­corr=lewis -n bootstrapped 
+raxmlHPC -m GTRCAT -p 12345 -f b -t RAxML_bestTree.bootstrapped -z RAxML_bootstrap.bootstrapped -n FINAL_bootstrapped.tre
 </code></pre>
-<p><br />
-<br />
-</p>
-</div>
-<div id="load-data" class="section level3">
-<h3>2. Load data</h3>
-<p>Load the .ped input file that we will analyse. This is a matrix (rows = number of individual samples, columns = genotypes at each locus). The first 6 columns are mandatory (family, individual, maternal/paternal IDs, Sex abd Phenotype). We actually only have the individual IDs so the others are defaulted out. You can read more about this PLNK, format here: <a href="https://zzz.bwh.harvard.edu/plink/data.shtml" class="uri">https://zzz.bwh.harvard.edu/plink/data.shtml</a></p>
-<pre class="r"><code># Read in ped file, convert to .geno format needed by LEA package for sNMF
-data = read.table(&quot;./data/L_flavomaculatus/Inputs/sNMF/Lflav.ped&quot;)
-output = ped2geno(&quot;./data/L_flavomaculatus/Inputs/sNMF/Lflav.ped&quot;)
-species &lt;- read.geno(&quot;./data/L_flavomaculatus/Inputs/sNMF/Lflav.geno&quot;)</code></pre>
-<p><br />
-<br />
-</p>
-</div>
-<div id="run-snmf" class="section level3">
-<h3>3. Run sNMF</h3>
-<p>We can give sNMF a range of K to test, so let’s follow 1:10 like we did in Admixture so that we have comparable results. Here we set the ploidy to 2 (diploid organism, having 5 repetitions of each K value to test, so 50 total reps). We set entropy=T and project=‘new’). There are a bunch of things you can tweak (see here: <a href="http://membres-timc.imag.fr/Olivier.Francois/snmf/files/note.pdf" class="uri">http://membres-timc.imag.fr/Olivier.Francois/snmf/files/note.pdf</a>) but let’s keep this simple. Current settings here will take around 3-4 mins to complete</p>
-<p>Block to update:</p>
-<pre class="r"><code># Run snmf to look at structure
-k_range &lt;- 1:10
-species.snmf &lt;- snmf((&quot;./data/L_flavomaculatus/Inputs/sNMF/Lflav.geno&quot;), K = k_range,
-    entropy = T, ploidy = 2, rep = 5, project = &quot;new&quot;)</code></pre>
-<p><br />
-<br />
-</p>
-</div>
-<div id="plot-cv-scores" class="section level3">
-<h3>4. Plot CV scores</h3>
-<p>We will first set the plot margins and then set an output file (png) with specific sizes and resolutions Then we plot the results (first points, then a line to join the points) and save the file</p>
-<pre class="r"><code># plot CV scores
-sumpr2 &lt;- summary(species.snmf)$crossEntropy
-sumpr &lt;- sumpr2[2, ]
-
-par(mar = c(2, 2, 2, 2))
-png(filename = &quot;./outputs/sNMF_Results_CV_scores.png&quot;, type = &quot;quartz&quot;, height = 8,
-    width = 8, units = &quot;in&quot;, res = 300)
-plot(sumpr, lty = 2, lwd = 1.5, col = &quot;black&quot;, pch = 19, cex = 0.5, xlab = &quot;k clusters&quot;,
-    ylab = &quot;CV score&quot;, main = &quot;Cross validation scores across k (sNMF)&quot;)
-lines(sumpr, lwd = 2, col = &quot;steelblue2&quot;)
-dev.off()</code></pre>
-<p><br />
-<br />
-</p>
-</div>
-<div id="make-barplot-of-snmf-results" class="section level3">
-<h3>5. Make barplot of sNMF results</h3>
-<p>We’ll first do an automated thing to get the best value of K (which K value and which run of the 5 you made)</p>
-<pre class="r"><code># Choose K with lowest mean cross entropy
-K &lt;- c(1:10)[which.min(sumpr2[2, ])]  # K=4
-# Get the cross-entropy of each run for K
-ce &lt;- cross.entropy(species.snmf, K = K)
-# Select the run with the lowest cross-entropy
-best &lt;- which.min(ce)
-best</code></pre>
-<p>Next we will take the q values from the sNMF results for the selected K value and run (analagous to the Admixture Lflav.4.Q file). It is a matrix of 59 rows (one per individual) and 4 columns (i.e. K). The probability of membership to each population cluster is shown for each individual</p>
-<pre class="r"><code>Q_vals &lt;- Q(species.snmf, K = K, run = best)
-sample_names &lt;- data[, 2]
-pop_assignment &lt;- as.data.frame(cbind(sample_names, Q_vals))
-
-ord = pop_assignment[order(pop_assignment$V4, pop_assignment$V1, pop_assignment$V2,
-    pop_assignment$V3), ]
-rownames(ord) &lt;- ord$sample_names
-ord &lt;- ord[, 2:5]
-
-par(mar = c(20, 4, 1, 1))
-bp = barplot(t(as.matrix(ord)), space = (0.04), col = c(&quot;blue&quot;, &quot;turquoise&quot;, &quot;darkblue&quot;,
-    &quot;lightblue&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1, las = 2, cex.names = 0.9)</code></pre>
-<p>The above plot is not so clean, very messy and not very pretty. Let’s reorder the output file so that it matches the order of individuals in the Admixture analyses. It can then be plotted for direct and easy comparison.</p>
-<pre class="r"><code># match ord_labels to the pop_assignment
-ord_labels &lt;- read.csv(&quot;./data/L_flavomaculatus/Outputs/sNMF/ord_labels_sNMF.csv&quot;)
-ord_labels_sample_name_only &lt;- as.data.frame(ord_labels)
-colnames(ord_labels_sample_name_only) &lt;- &quot;sample_name_only&quot;
-ord_labels_sample_name_only &lt;- substr(ord_labels_sample_name_only$sample_name_only,
-    1, 5)
-ord_labels_sample_name_only &lt;- as.data.frame(ord_labels_sample_name_only)
-ord_labels &lt;- cbind(ord_labels, ord_labels_sample_name_only)
-
-# now sort pop_assignment based on order in ord_labels$sample_name_only
-
-sorted_pop_assignment &lt;- pop_assignment[order(match(pop_assignment[, 1], ord_labels_sample_name_only[,
-    1])), ]
-row.names(sorted_pop_assignment) &lt;- sorted_pop_assignment$sample_names
-sorted_pop_assignment &lt;- sorted_pop_assignment[, 2:5]
-
-# plot the sNMF barplot for comparison with Admixture
-bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col = c(&quot;darkblue&quot;,
-    &quot;blue&quot;, &quot;lightblue&quot;, &quot;turquoise&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1,
-    las = 2, cex.names = 0.9)
-
-# save
-png(filename = &quot;./outputs/sNMF_Results_Barplot.png&quot;, type = &quot;quartz&quot;, height = 8,
-    width = 30, units = &quot;in&quot;, res = 300)
-bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col = c(&quot;darkblue&quot;,
-    &quot;blue&quot;, &quot;lightblue&quot;, &quot;turquoise&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1,
-    las = 2, cex.names = 0.9)
-dev.off()
-</code></pre>
-<p><br />
-<br />
-</p>
-</div>
-<div id="on-your-own" class="section level3">
-<h3>On your own…</h3>
-<p>Try plotting k=1 - k=5, feel free to change colour schemes and the order of the tbl object If you have your own data you can try and use this script to plot your own outputs</p>
 </div>
 
 

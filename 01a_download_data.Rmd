@@ -1,0 +1,58 @@
+---
+title: 'Tutorial: Downloading data'
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
+                      echo=TRUE, warning=FALSE, message=FALSE,
+                      tidy = TRUE, collapse = TRUE,
+                      results = 'hold')
+```
+\
+\
+
+### Timings 
+  1. Download bat data (ca. 35 min)
+  2. un-bzip the files and gzip them so they are ready for Stacks 2 ( ca. 5 min)
+  
+All done in EVE cluster
+  
+\
+\
+
+### 1. Download ENA data and get them in correct format for Stacks 2
+
+This is all done in the EVE cluster, you can make your own scripts to do this or use the one provided #(run_Admixture.sh). It can be submitted via sbatch in the EVE cluster, but be sure to modify the email address #and output paths to your own details.
+
+
+```{r}
+# download ENA Data
+
+
+cd /data/life_on_the_edge/
+mkdir Workshop_3/
+mkdir Workshop_3/Myotis_escalarai/
+cd Workshop_3/Myotis_escalarai/
+mkdir raw/
+mkdir demultiplexed/
+cd raw/
+
+# bat data example download == 134 inds of Myotis bats ddRADseq PE data, sbfI and nlaIII enzymes. barcodes are inline inline adapters
+
+#https://www.ebi.ac.uk/ena/browser/text-search?query=PRJEB29086
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR283/ERR2832479/BAT_01_NoIndex_L008_R1_001.fastq.bz2
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR283/ERR2832479/BAT_01_NoIndex_L008_R2_001.fastq.bz2
+
+# these are bzip2ed, so need to be unzipped and then gzipped for Stacks
+
+ml GCCcore/10.2.0
+ml bzip2/1.0.8
+cd /data/life_on_the_edge/Workshop_3/Myotis_escalarai/raw/
+
+bzip2 -d ./*
+gzip ./*
+
+```{r}

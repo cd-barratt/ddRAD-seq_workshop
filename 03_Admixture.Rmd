@@ -11,6 +11,8 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
                       tidy = TRUE, collapse = TRUE,
                       results = 'hold')
 ```
+\
+\
 
 ### Timings 
   1. Run admixture (in EVE cluster, ~3 min)
@@ -21,11 +23,15 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
 
 Step 1 done in EVE cluster, Steps 2-4 done locally on your machines
   
+\
+\
 
 ### Other info
 - If you are on a PC, directory paths need to be separated by back-slashes instead of forward-slashes
 - Try not to resize windows/display panels while R is busy calculating/plotting - this tends to cause problems
   
+\
+\
 
 ### 1. Run Admixture (on the EVE cluster)
 #This is all done in the EVE cluster, you can make your own scripts to do this or use the one provided #(run_Admixture.sh). It can be submitted via sbatch in the EVE cluster, but be sure to modify the email address #and output paths to your own details.
@@ -77,6 +83,8 @@ sort ./tmp.txt > ./RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt
 rm -rf ./tmp.txt
 ```
 
+\
+\
 
 ### 2. Initial setup and package install (in R)
 Now we are switching to R to make sense of the Admixture output files...
@@ -92,6 +100,8 @@ setwd('./data/L_flavomaculatus/Outputs/Admixture/')
 library(stringr)
 ```
 
+\
+\
 
 ### 3. Load data
 Load the cleaned Admixture output file that we will analyse. This is a simple text file with the number of clusters (K) and the corresponding 10-fold cross-validation(CV) score
@@ -100,6 +110,8 @@ Load the cleaned Admixture output file that we will analyse. This is a simple te
 results <- read.delim('./data/L_flavomaculatus/Outputs/Admixture/RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt', sep=' ',header=FALSE)
 ```
 
+\
+\
 
 ### 4. Plot CV scores
 We will first set the plot margins and then set an output file (png) with specific sizes and resolutions
@@ -115,6 +127,8 @@ dev.off()
 
 Because this dataset is for relatively highly structured (low-dispersal) amphibians, the 'elbow' in the plot is very clear - with a lower CV score at K=4. This is not always the case for all datasets, so other approaches might be useful to use a few different methods to look at population structure (reviewers anyway generally like this approach).
 
+\
+\
 
 ### 5. Make barplot of Admixture results
 Now that we know the optimal value of K we can plot the Admixture coefficients across all of our samples (n=59 in this case). We'll read the Lflav.4.Q output file from Admixture and order it to make it look nicer. We'll then plot it, add individual labels for each sample and then save the final plot.
@@ -133,6 +147,8 @@ dev.off()
 
 ```
 
+\
+\
 
 ### On your own...
 

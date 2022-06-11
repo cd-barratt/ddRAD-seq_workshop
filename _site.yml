@@ -9,12 +9,12 @@ navbar:
     href: index.html
   - text: Tutorials
     menu:
-    - text: 01 - Downloading data from ENA
-      href: 01_ENA_download.html
-    - text: 02a - Demultiplexing sequencing data (process_radtags)
-      href: 02a_process_radtags.html
-    - text: 02b - Running Stacks 2 (denovo_map)
-      href: 02b_denovo_map.html
+    - text: 01a - Downloading data from ENA
+      href: 01a_download_data.html
+    - text: 01b - Demultiplexing sequencing data (process_radtags)
+      href: 01b_process_radtags.html
+    - text: 02 - Running Stacks 2 (denovo_map)
+      href: 02_denovo_map.html
     - text: 03 - Population structure (Admixture)
       href: 03_Admixture.html
     - text: 04 - Population structure (sNMF)

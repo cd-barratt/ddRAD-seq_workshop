@@ -239,7 +239,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Estimating_genetic_diversity_and_population_information_from_short_read_(ddRAD-seq)_type_data</a>
+      <a class="navbar-brand" href="index.html">ddRAD-seq_workshop</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -258,20 +258,35 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="03_Admixture.html">03 - 03_Admixture</a>
+      <a href="01a_download_data.html">01a - Downloading data from ENA</a>
     </li>
     <li>
-      <a href="04_sNMF.html">04 - 04_sNMF</a>
+      <a href="01b_process_radtags.html">01b - Demultiplexing sequencing data (process_radtags)</a>
     </li>
     <li>
-      <a href="05_DAPC.html">05 - 05_DAPC</a>
+      <a href="02_denovo_map.html">02 - Running Stacks 2 (denovo_map)</a>
+    </li>
+    <li>
+      <a href="03_Admixture.html">03 - Population structure (Admixture)</a>
+    </li>
+    <li>
+      <a href="04_sNMF.html">04 - Population structure (sNMF)</a>
+    </li>
+    <li>
+      <a href="05_DAPC.html">05 - Population structure (DAPC)</a>
+    </li>
+    <li>
+      <a href="06_RAxML.html">06 - Phylogentic relationships (RAxML)</a>
+    </li>
+    <li>
+      <a href="07_Fstats.html">07 - Genetic Diversity)</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/cd-barratt/Estimating_genetic_diversity_and_population_information_from_short_read_(ddRAD-seq)_type_data/">GitHub</a>
+  <a href="https://github.com/cd-barratt/ddRAD-seq_workshop/">GitHub</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -287,6 +302,9 @@ $(document).ready(function () {
 </div>
 
 
+<p><br />
+<br />
+</p>
 <div id="timings" class="section level3">
 <h3>Timings</h3>
 <ol style="list-style-type: decimal">
@@ -297,6 +315,9 @@ $(document).ready(function () {
 <li>Make barplot of Admixture results (&lt; 1 min)</li>
 </ol>
 <p>Step 1 done in EVE cluster, Steps 2-4 done locally on your machines</p>
+<p><br />
+<br />
+</p>
 </div>
 <div id="other-info" class="section level3">
 <h3>Other info</h3>
@@ -304,6 +325,9 @@ $(document).ready(function () {
 <li>If you are on a PC, directory paths need to be separated by back-slashes instead of forward-slashes</li>
 <li>Try not to resize windows/display panels while R is busy calculating/plotting - this tends to cause problems</li>
 </ul>
+<p><br />
+<br />
+</p>
 </div>
 <div id="run-admixture-on-the-eve-cluster" class="section level3">
 <h3>1. Run Admixture (on the EVE cluster)</h3>
@@ -352,6 +376,9 @@ sed -e &#39;s/1 /01 /g&#39; ./RESULTS_Leptopelis_flavomaculatus_admixture_clean.
 # sort output file (01-10) and remove old temporary one
 sort ./tmp.txt &gt; ./RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt
 rm -rf ./tmp.txt</code></pre>
+<p><br />
+<br />
+</p>
 </div>
 <div id="initial-setup-and-package-install-in-r" class="section level3">
 <h3>2. Initial setup and package install (in R)</h3>
@@ -363,12 +390,18 @@ setwd(&quot;./data/L_flavomaculatus/Outputs/Admixture/&quot;)
 # install.packages(c(&#39;stringr&#39;))
 
 library(stringr)</code></pre>
+<p><br />
+<br />
+</p>
 </div>
 <div id="load-data" class="section level3">
 <h3>3. Load data</h3>
 <p>Load the cleaned Admixture output file that we will analyse. This is a simple text file with the number of clusters (K) and the corresponding 10-fold cross-validation(CV) score</p>
 <pre class="r"><code>results &lt;- read.delim(&quot;./data/L_flavomaculatus/Outputs/Admixture/RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt&quot;,
     sep = &quot; &quot;, header = FALSE)</code></pre>
+<p><br />
+<br />
+</p>
 </div>
 <div id="plot-cv-scores" class="section level3">
 <h3>4. Plot CV scores</h3>
@@ -381,6 +414,9 @@ plot(results, pch = 19, col = &quot;black&quot;, cex = 0.25, xlab = &quot;k clus
 lines(results, lty = 1, lwd = 1.5, col = &quot;steelblue2&quot;)
 dev.off()</code></pre>
 <p>Because this dataset is for relatively highly structured (low-dispersal) amphibians, the ‘elbow’ in the plot is very clear - with a lower CV score at K=4. This is not always the case for all datasets, so other approaches might be useful to use a few different methods to look at population structure (reviewers anyway generally like this approach).</p>
+<p><br />
+<br />
+</p>
 </div>
 <div id="make-barplot-of-admixture-results" class="section level3">
 <h3>5. Make barplot of Admixture results</h3>
@@ -399,6 +435,9 @@ bp = barplot(t(as.matrix(ord_with_labels)), space = (0.04), col = c(&quot;blue&q
     cex.names = 0.9)
 dev.off()
 </code></pre>
+<p><br />
+<br />
+</p>
 </div>
 <div id="on-your-own" class="section level3">
 <h3>On your own…</h3>
