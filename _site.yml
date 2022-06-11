@@ -24,7 +24,7 @@ navbar:
     - text: 06 - Phylogentic relationships (RAxML)
       href: 06_RAxML.html  
     - text: 07 - Genetic Diversity (F-stats)
-      href: 07_Fstats.html   
+      href: 07_F-stats.html   
   right:
   - text: GitHub
     href: https://github.com/cd-barratt/ddRAD-seq_workshop/
