@@ -1,0 +1,21 @@
+#############
+
+module purge
+module load Anaconda3
+conda config --add channels bioconda
+
+#conda create --override-channels --channel iuc --channel conda-forge --channel bioconda --channel defaults --prefix global/apps/stacks_2.61 stacks=2.61
+
+
+conda create --override-channels --channel iuc --channel conda-forge --channel bioconda --channel defaults --prefix stacks_2.61 stacks=2.61
+
+module purge
+module load Anaconda3
+conda activate /gpfs0/global/apps/stacks_2.61
+
+conda install -c bioconda admixture
+
+
+conda create --override-channels --channel iuc --channel conda-forge --channel bioconda --channel defaults --prefix /global/apps/plink_1.90 plink
+
+conda install -c bioconda plink
