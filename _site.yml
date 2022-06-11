@@ -17,7 +17,7 @@ navbar:
       href: 05_DAPC.html
   right:
   - text: GitHub
-    href: https://github.com/cd-barratt/ddRAD_seq_workshop/
+    href: https://github.com/cd-barratt/ddRAD-seq_workshop/
 output:
   html_document:
     lib_dir: site_libs
