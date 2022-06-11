@@ -23,7 +23,7 @@ navbar:
       href: 05_DAPC.html
     - text: 06 - Phylogentic relationships (RAxML)
       href: 06_RAxML.html  
-    - text: 07 - Genetic Diversity)
+    - text: 07 - Genetic Diversity (F-stats)
       href: 07_Fstats.html   
   right:
   - text: GitHub
