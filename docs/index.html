@@ -11,12 +11,12 @@
 
 
 
-<title>index.knit</title>
+<title>Estimating genetic diversity and population information from short read (ddRAD-seq) type data</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -282,53 +282,62 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Estimating genetic diversity and population information from short read (ddRAD-seq) type data</h1>
 
 </div>
 
 
-<div id="estimating_genetic_diversity_and_population_information_from_short_read_ddrad-seq_type_data" class="section level1">
-<h1>Estimating_genetic_diversity_and_population_information_from_short_read_(ddRAD-seq)_type_data</h1>
+<p><br />
+</p>
 <p>Date &amp; time: June 20-21 2022 (09:00-15:00)</p>
 <p>Location: German Centre for Integrative Biodiversity Research (iDiv), Puschstrasse 4, 04103, Leipzig. Room: Beehive (Ground floor)</p>
-<p>Teachers: Chris Barratt &amp; Laura Mendez Cuellar, sDiv and Evolution and Adaptation (iDiv)</p>
-<p><a href="https://www.idiv.de/en/sdiv.html" class="uri">https://www.idiv.de/en/sdiv.html</a> <a href="https://www.idiv.de/en/groups-and-people/core-groups/evolution-and-adaptation.html" class="uri">https://www.idiv.de/en/groups-and-people/core-groups/evolution-and-adaptation.html</a></p>
-<p>Course summary: <a href="https://www.idiv.de/en/ydiv/graduate-school/courses-and-events/estimating-genetic-diversity-and-population-information-from-short-read-ddrad-seq-type-data.html" class="uri">https://www.idiv.de/en/ydiv/graduate-school/courses-and-events/estimating-genetic-diversity-and-population-information-from-short-read-ddrad-seq-type-data.html</a> Course website: <a href="https://github.com/cd-barratt/XXX" class="uri">https://github.com/cd-barratt/XXX</a></p>
-</div>
-<div id="detailed-schedule" class="section level1">
-<h1>Detailed schedule</h1>
-<p>Day 1 (20th June): 09:00 - 15:00<br />
-* Brief introductions and research topics of course leaders and course participants (2-3 mins each) * Introductory lecture on population genomics and ddRAD-seq and which kinds of questions can be answered with these data * Hands on session for downloading publicly available genomic data (e.g. from the European Nucleotide Archive) * Hands on session for each of the major processing steps required for the Stacks 2 pipeline (process_radtags, denovo_map)</p>
-<p>Day 2 (21st June): 09:00 - 15:00 Hands on sessions to analyse population structure, phylogeny and genetic diversity: * Admixture * sNMF * DAPC * RAxML</p>
-</div>
-<div id="before-the-course" class="section level1">
-<h1>Before the course</h1>
-<p>Please:</p>
+<p>Teachers: <a href="https://cd-barratt.github.io/">Chris Barratt</a> &amp; <a href="https://www.idiv.de/en/profile/1062.html">Laura Mendez Cuellar</a>, sDiv and [Evolution and Adaptation (iDiv)</p>
+<p><a href="https://www.idiv.de/en/ydiv/graduate-school/courses-and-events/estimating-genetic-diversity-and-population-information-from-short-read-ddrad-seq-type-data.html">Course summary</a> | <a href="https://cd-barratt.github.io/ddRAD-seq_workshop/">Course website</a></p>
+<p><br />
+</p>
+<div id="schedule" class="section level1">
+<h1>Schedule</h1>
+<p>Day 1 (20th June): 09:00 - 15:00</p>
 <ul>
-<li><p>Please bring your own computer and be able to use it</p></li>
+<li><p>Brief introductions and research topics of course leaders and course participants (2-3 mins each)</p></li>
+<li><p>Introductory lecture on population genomics and ddRAD-seq and which kinds of questions can be answered with these data</p></li>
+<li><p>Hands on session for downloading publicly available genomic data (e.g. from the European Nucleotide Archive)</p></li>
+<li><p>Hands on session for each of the major processing steps required for the Stacks 2 pipeline (process_radtags, denovo_map)</p></li>
+</ul>
+<p>Day 2 (21st June): 09:00 - 15:00</p>
+<p>Hands on sessions to analyse population structure, phylogeny and genetic diversity:</p>
+<ul>
+<li><p>Admixture</p></li>
+<li><p>sNMF</p></li>
+<li><p>DAPC</p></li>
+<li><p>RAxML</p></li>
+</ul>
+<p> <br />
+</p>
+</div>
+<div id="before-the-course-please" class="section level1">
+<h1>Before the course, please:</h1>
+<ul>
+<li><p>Bring your own computer and know how to use it</p></li>
 <li><p>Ensure you have working access to the UFZ EVE cluster and have a basic understanding of the job queuing system (i.e. how to submit jobs)</p></li>
+<li><p>Also an interface for file transfer would be useful - e.g. FileZilla, CyberDuck - see <a href="https://portal.idiv.de/nextcloud/index.php/s/oyP3FSFfwnKwiy9">here</a></p></li>
 <li><p>Install <a href="https://cran.r-project.org/bin/">R</a> and <a href="https://www.rstudio.com/products/rstudio/download/#download">Rstudio</a> on your computer</p></li>
-<li><p>Read the course <a href="https://github.com/cd-barratt/XXX#literature">literature</a></p></li>
+<li><p>Read the course literature (see below)</p></li>
 <li><p>Open Rstudio and install the necessary dependencies by copying the code below into the R console and running it.</p></li>
 </ul>
-<p>Please do not hesitate to <a href="mailto:c.d.barratt@gmail.com,%20mailto:laura.mendezcue@gmail.com">contact us</a> if you have any questions.</p>
+<p>Please <a href="mailto:c.d.barratt@gmail.com,%20mailto:laura.mendezcue@gmail.com">contact us</a> if you have any questions</p>
+<p><br />
+<br />
+</p>
 </div>
 <div id="installation" class="section level1">
 <h1>Installation</h1>
-<p>Please run the following code (just copy it into the R console) before the course to make sure all dependencies are installed and we can start smoothly.</p>
-<pre><code>install.packages(c(&quot;countrycode&quot;, &quot;ConR&quot;, &quot;devtools&quot;, &quot;ggmap&quot;, &quot;mapproj&quot;, &quot;maps&quot;,
-                   &quot;rgbif&quot;, &quot;raster&quot;, &quot;rnaturalearth&quot;, &quot;sp&quot;, &quot;tidyverse&quot;,
-                   &quot;viridis&quot;))
-
-library(devtools)
-
-install_github(repo = &quot;azizka/speciesgeocodeR&quot;)
-install_github(repo = &quot;azizka/sampbias&quot;)
-install_github(repo = &quot;azizka/CoordinateCleaner&quot;)
-
-XXXXX</code></pre>
-</div>
-<div id="objectives" class="section level1">
-<h1>Objectives</h1>
+<p>Please run the following code (just copy it into the RStudio console) before the course to make sure all R packages are installed</p>
+<pre><code>install.packages(c(&quot;XXXXXXXX&quot;))
+</code></pre>
+<p><br />
+<br />
+# Objectives</p>
 <ol style="list-style-type: decimal">
 <li><p>Understand best practices on planning and executing a population genomics project based on ddRAD-seq (short read) type data</p></li>
 <li><p>Learn how to download genomic sequence data from the European Nucleotide Archive</p></li>
@@ -336,14 +345,23 @@ XXXXX</code></pre>
 <li><p>Be able to generate your own output files after Stacks 2 processing for downstream analyses of population structure, phylogeny and genetic diveristy</p></li>
 <li><p>Conduct and understand several of these outputs (Admixture, sNMF, DAPC, RAxML, F-statistics)</p></li>
 </ol>
+<p><br />
+<br />
+</p>
 </div>
 <div id="background" class="section level1">
 <h1>Background</h1>
-<p>The reduction in costs for genomic data generation has reduced drastically in recent years. This cost reduction has led to the large-scale adoption of ddRAD-seq as a method for denovo Single Nucleotide Polymorphism SNP discovery in non-model organisms, where thousands of molecular markers can be used to answer ecological, evolutionary and conservation questions. In this course you’ll learn how to plan a project effectively, learn the data types, how to analyse them and what the outputs mean</p>
+<p>The reduction in costs for genomic data generation has reduced drastically in recent years. This cost reduction has led to the large-scale adoption of ddRAD-seq as a method for denovo Single Nucleotide Polymorphism SNP discovery in non-model organisms, where thousands of molecular markers can be used to answer ecological, evolutionary and conservation questions. In this course you’ll learn how to plan a project effectively, learn the data types, how to analyse them and what the outputs mean. There’s also the chance to analyse your own data (if you already have it) and earn an extra 0.5 ECTS.</p>
+<p><br />
+<br />
+</p>
 </div>
 <div id="literature" class="section level1">
 <h1>Literature</h1>
-<p>XXXXX</p>
+<p>Andrews et al 2016. <a href="https://www.nature.com/articles/nrg.2015.28">Harnessing the power of RADseq for ecological and evolutionary genomics</a></p>
+<p>Rochette et a. 2019. <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.15253">Stacks 2: Analytical methods for paired-end sequencing improve RADseq-based population genomics</a></p>
+<p>Paris et al. 2017 <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12775">Lost in parameter space: a road map for stacks</a></p>
+<p>Barratt et al. 2018 <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/mec.14862">Vanishing refuge? Testing the forest refuge hypothesis in coastal East Africa using genome-wide sequence data for seven amphibians</a></p>
 </div>
 
 
