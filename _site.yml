@@ -1,7 +1,7 @@
-name: Estimating_genetic_diversity_and_population_information_from_short_read_(ddRAD-seq)_type_data
+name: ddRAD-seq_workshop
 output_dir: docs
 navbar:
-  title: Estimating_genetic_diversity_and_population_information_from_short_read_(ddRAD-seq)_type_data
+  title: ddRAD-seq_workshop
   type: inverse
   left:
   - text: Home
