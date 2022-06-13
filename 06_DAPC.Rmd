@@ -72,7 +72,7 @@ head(grp$grp, 59) # Group membership (based on your defined number of clusters)
 grp$size # Group size per k cluster
 
 x <- as.data.frame(grp$Kstat)
-png(filename="./outputs/DAPC_Results_BIC_scores.png", type="quartz", height=8, width=8, units="in", res=300)
+png(filename="/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_6/DAPC_Results_BIC_scores.png", type="quartz", height=8, width=8, units="in", res=300)
 plot(x$`grp$Kstat`, pch=19, col= "black", cex=0.25, xlab="k clusters", ylab="Bayesian Information Criterion", main = "BIC across k")
 lines(x$`grp$Kstat`, lty=1, lwd=1.5, col='steelblue2')
 dev.off()
@@ -98,9 +98,9 @@ dapc1 <- dapc(data, grp$grp, n.pca = 5, n.da = 3)
 
 Set some colours and then plot
 ```{r}
-myCol <- c("blue","turquoise","lightblue", "darkblue")
-png("./outputs/DAPC_Lflavomaculatus.png",width=500,height=500)
-scatter(dapc1, scree.da=TRUE, scree.pca=TRUE, bg="white", pch=20, cell=0, cstar=0, col=myCol, solid=1, cex=1.5, clab=0, leg=FALSE, txt.leg=paste("Cluster",1:4))
+myCol <- c("blue","turquoise","darkblue", "lightblue")
+png("/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_6/DAPC_Lflavomaculatus.png",width=500,height=500)
+scatter(dapc1, scree.da=TRUE, scree.pca=FALSE, bg="white", pch=20, cell=0, cstar=0, col=myCol, solid=1, cex=1.5, clab=0, leg=FALSE, txt.leg=paste("Cluster",1:4))
 dev.off()
 ```
 
