@@ -73,9 +73,9 @@ Please [contact us](mailto:c.d.barratt@gmail.com, mailto:laura.mendezcue@gmail.c
 
 3.	Familiarise yourself with the Stacks 2 bioinformatics pipeline to process raw reads 
 
-4.	Be able to generate your own output files after Stacks 2 processing for downstream analyses of population structure, phylogeny and genetic diveristy
+4.	Be able to generate your own output files after Stacks 2 processing for downstream analyses of population structure, phylogeny and genetic diversity
 
-5.  Conduct and understand several of these outputs (Admixture, sNMF, DAPC, RAxML, F-statistics)
+5.  Run analyses to perform (Admixture, sNMF, DAPC, RAxML, F-statistics), understand what you've done and how to interpret the outputs
 
 \
 \
