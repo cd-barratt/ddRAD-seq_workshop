@@ -27,6 +27,8 @@ Day 1 (20th June): 09:00 - 15:00
 
 * Hands on session for downloading publicly available genomic data (e.g. from the European Nucleotide Archive)
 
+* Stacks 2 lecture (main processing steps)
+
 * Hands on session for each of the major processing steps required for the Stacks 2 pipeline (process_radtags, denovo_map)
 
 \
@@ -93,7 +95,7 @@ In this course you'll learn how to plan a project effectively, learn the data ty
 
 Andrews et al 2016. [Harnessing the power of RADseq for ecological and evolutionary genomics](https://www.nature.com/articles/nrg.2015.28)
 
-Rochette et aL. 2019. [Stacks 2: Analytical methods for paired-end sequencing improve RADseq-based population genomics](https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.15253)
+Rochette et al. 2019. [Stacks 2: Analytical methods for paired-end sequencing improve RADseq-based population genomics](https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.15253)
 
 Paris et al. 2017 [Lost in parameter space: a road map for stacks](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12775)
 
