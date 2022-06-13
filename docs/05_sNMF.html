@@ -335,8 +335,8 @@ $(document).ready(function () {
 library(LEA)
 
 data = read.table(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/sNMF/Lflav.ped&quot;)
-output = ped2geno(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF/Lflav.ped&quot;)
-geno &lt;- read.geno(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF/Lflav.geno&quot;)</code></pre>
+output = ped2geno(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/sNMF/Lflav.ped&quot;)
+geno &lt;- read.geno(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/sNMF/Lflav.geno&quot;)</code></pre>
 <p><br />
 <br />
 </p>
@@ -347,7 +347,7 @@ geno &lt;- read.geno(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Ex
 <p>Block to update:</p>
 <pre class="r"><code># Run snmf to look at structure
 k_range &lt;- 1:10
-geno.snmf &lt;- snmf((&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF/Lflav.geno&quot;),
+geno.snmf &lt;- snmf((&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/sNMF/Lflav.geno&quot;),
     K = k_range, entropy = T, ploidy = 2, rep = 5, project = &quot;new&quot;)</code></pre>
 <p><br />
 <br />
@@ -377,7 +377,7 @@ dev.off()</code></pre>
 <pre class="r"><code># Choose K with lowest mean cross entropy
 K &lt;- c(1:10)[which.min(sumpr2[2, ])]  # K=4
 # Get the cross-entropy of each run for K
-ce &lt;- cross.entropy(species.snmf, K = K)
+ce &lt;- cross.entropy(geno.snmf, K = K)
 # Select the run with the lowest cross-entropy
 best &lt;- which.min(ce)
 best</code></pre>
@@ -391,7 +391,7 @@ ord = pop_assignment[order(pop_assignment$V4, pop_assignment$V1, pop_assignment$
 rownames(ord) &lt;- ord$sample_names
 ord &lt;- ord[, 2:5]
 
-par(mar = c(20, 4, 1, 1))
+par(mar = c(10, 4, 1, 1))
 bp = barplot(t(as.matrix(ord)), space = (0.04), col = c(&quot;blue&quot;, &quot;turquoise&quot;, &quot;darkblue&quot;,
     &quot;lightblue&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1, las = 2, cex.names = 0.9)</code></pre>
 <p>The above plot is not so clean, very messy and not very pretty. Let’s reorder the output file so that it matches the order of individuals in the Admixture analyses. It can then be plotted for direct and easy comparison.</p>
@@ -412,15 +412,15 @@ row.names(sorted_pop_assignment) &lt;- sorted_pop_assignment$sample_names
 sorted_pop_assignment &lt;- sorted_pop_assignment[, 2:5]
 
 # plot the sNMF barplot for comparison with Admixture
-bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col = c(&quot;darkblue&quot;,
-    &quot;blue&quot;, &quot;lightblue&quot;, &quot;turquoise&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1,
+bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col = c(&quot;blue&quot;,
+    &quot;lightblue&quot;, &quot;turquoise&quot;, &quot;darkblue&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1,
     las = 2, cex.names = 0.9)
 
 # save
 png(filename = &quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF_Results_Barplot.png&quot;,
     type = &quot;quartz&quot;, height = 8, width = 30, units = &quot;in&quot;, res = 300)
-bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col = c(&quot;darkblue&quot;,
-    &quot;blue&quot;, &quot;lightblue&quot;, &quot;turquoise&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1,
+bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col = c(&quot;blue&quot;,
+    &quot;lightblue&quot;, &quot;turquoise&quot;, &quot;darkblue&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1,
     las = 2, cex.names = 0.9)
 dev.off()
 </code></pre>

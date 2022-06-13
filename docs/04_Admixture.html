@@ -390,7 +390,7 @@ rsync(XXXXXXXXXXXXXXXXX)</code></pre>
 <div id="load-data" class="section level3">
 <h3>2. Load data</h3>
 <p>Load the cleaned Admixture output file that we will analyse. This is a simple text file with the number of clusters (K) and the corresponding 10-fold cross-validation(CV) score. Be aware here and further on that directory separators are different between mac (/) and Windows (), so check you are using the correct ones if you are having trouble reading files</p>
-<pre class="r"><code>results &lt;- read.delim(&quot;./RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt&quot;,
+<pre class="r"><code>results &lt;- read.delim(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt&quot;,
     sep = &quot; &quot;, header = FALSE)</code></pre>
 <p><br />
 <br />
@@ -400,8 +400,8 @@ rsync(XXXXXXXXXXXXXXXXX)</code></pre>
 <h3>3. Plot CV scores</h3>
 <p>We will first set the plot margins and then set an output file (png) with specific sizes and resolutions Then we plot the results (first points, then a line to join the points)</p>
 <pre class="r"><code>par(mar = c(2, 2, 2, 2))
-png(filename = &quot;./Admixture_Results_CV_scores.png&quot;, type = &quot;quartz&quot;, height = 8,
-    width = 8, units = &quot;in&quot;, res = 300)
+png(filename = &quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_4/Admixture_Results_CV_scores.png&quot;,
+    type = &quot;quartz&quot;, height = 8, width = 8, units = &quot;in&quot;, res = 300)
 plot(results, pch = 19, col = &quot;black&quot;, cex = 0.25, xlab = &quot;k clusters&quot;, ylab = &quot;CV score&quot;,
     main = &quot;Cross validation scores across k (Admixture&quot;)
 lines(results, lty = 1, lwd = 1.5, col = &quot;steelblue2&quot;)
@@ -415,11 +415,12 @@ dev.off()</code></pre>
 <h3>4. Make barplot of Admixture results</h3>
 <p>Now that we know the optimal value of K we can plot the Admixture coefficients across all of our samples (n=59 in this case). We’ll read the Lflav.4.Q output file from Admixture and order it to make it look nicer. We’ll then plot it, add individual labels for each sample and then save the final plot.</p>
 <pre class="r"><code># plot bars
-tbl = read.table(&quot;./data/L_flavomaculatus/Outputs/Admixture/Lflav.4.Q&quot;)
+tbl = read.table(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_4/Lflav.4.Q&quot;)
 ord = tbl[order(tbl$V1, tbl$V3, tbl$V2, tbl$V4), ]
-png(filename = &quot;./outputs/Admixture_Results_Barplot.png&quot;, type = &quot;quartz&quot;, height = 8,
-    width = 30, units = &quot;in&quot;, res = 300)
-labels &lt;- read.csv(&quot;./data/L_flavomaculatus/Inputs/Admixture/pop_labels.csv&quot;, header = FALSE)
+png(filename = &quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_4/Admixture_Results_Barplot.png&quot;,
+    type = &quot;quartz&quot;, height = 8, width = 30, units = &quot;in&quot;, res = 300)
+labels &lt;- read.csv(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/pop_labels.csv&quot;,
+    header = FALSE)
 labels &lt;- data.frame(labels[, 1])
 ord_with_labels &lt;- data.frame(ord[, 1:4], row.names = labels[, 1])
 par(mar = c(20, 4, 1, 1))
