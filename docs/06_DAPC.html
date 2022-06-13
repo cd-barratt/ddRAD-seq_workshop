@@ -11,7 +11,7 @@
 
 
 
-<title>Estimating genetic diversity and population information from short read (ddRAD-seq) type data</title>
+<title>Tutorial: Discriminant Analysis of Principal Components (DAPC)</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -300,84 +300,133 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Estimating genetic diversity and population information from short read (ddRAD-seq) type data</h1>
+<h1 class="title toc-ignore">Tutorial: Discriminant Analysis of Principal Components (DAPC)</h1>
 
 </div>
 
 
 <p><br />
+<br />
 </p>
-<p>Date &amp; time: June 20-21 2022 (09:00-15:00)</p>
-<p>Location: German Centre for Integrative Biodiversity Research (iDiv), Puschstrasse 4, 04103, Leipzig. Room: Beehive (Ground floor)</p>
-<p>Teachers: <a href="https://cd-barratt.github.io/">Chris Barratt</a> &amp; <a href="https://www.idiv.de/en/profile/1062.html">Laura Mendez Cuellar</a>, sDiv and Evolution and Adaptation (iDiv)</p>
-<p><a href="https://www.idiv.de/en/ydiv/graduate-school/courses-and-events/estimating-genetic-diversity-and-population-information-from-short-read-ddrad-seq-type-data.html">Course summary</a> | <a href="https://cd-barratt.github.io/ddRAD-seq_workshop/">Course website</a></p>
-<p><br />
-</p>
-<div id="schedule" class="section level3">
-<h3>Schedule</h3>
-<p>Day 1 (20th June): 09:00 - 15:00</p>
-<ul>
-<li><p>Brief introductions and research topics of course leaders and course participants (2-3 mins each)</p></li>
-<li><p>Introductory lecture on population genomics and ddRAD-seq and which kinds of questions can be answered with these data</p></li>
-<li><p>Hands on session for downloading publicly available genomic data (e.g. from the European Nucleotide Archive)</p></li>
-<li><p>Hands on session for each of the major processing steps required for the Stacks 2 pipeline (process_radtags, denovo_map)</p></li>
-</ul>
-<p><br />
-</p>
-<p>Day 2 (21st June): 09:00 - 15:00</p>
-<p>Hands on sessions to analyse population structure, phylogeny and genetic diversity:</p>
-<ul>
-<li><p>Admixture (pop structure)</p></li>
-<li><p>sNMF (pop structure)</p></li>
-<li><p>DAPC (pop structure)</p></li>
-<li><p>RAxML (phylogenetic relationships)</p></li>
-<li><p>F-stats (FST, nucleotide diversity)</p></li>
-</ul>
-<p> <br />
-</p>
-</div>
-<div id="before-the-course-please" class="section level3">
-<h3>Before the course, please:</h3>
-<ul>
-<li><p>Bring your own computer and know how to use it</p></li>
-<li><p>Ensure you have working access to the UFZ EVE cluster and have a basic understanding of the job queuing system (i.e. how to submit jobs)</p></li>
-<li><p>Also an interface for file transfer would be useful - e.g. FileZilla, CyberDuck - see <a href="https://portal.idiv.de/nextcloud/index.php/s/oyP3FSFfwnKwiy9">here</a></p></li>
-<li><p>Install <a href="https://cran.r-project.org/bin/">R</a> (at least version 4) and <a href="https://www.rstudio.com/products/rstudio/download/#download">Rstudio</a> on your computer</p></li>
-<li><p>Read the course literature (see below)</p></li>
-</ul>
-<p><br />
-</p>
-<p>Please <a href="mailto:c.d.barratt@gmail.com,%20mailto:laura.mendezcue@gmail.com">contact us</a> if you have any questions!</p>
+<div id="timings" class="section level3">
+<h3>Timings</h3>
+<ol style="list-style-type: decimal">
+<li>Load data and convert to genind format for Adegenet (&lt; 1 min)</li>
+<li>Run the DAPC and plot the BIC scores (3 mins)</li>
+<li>Make barplot of Admixture results (&lt; 1 min)</li>
+</ol>
+<p>All done in R locally on your machine</p>
 <p><br />
 <br />
 </p>
 </div>
 <div id="objectives" class="section level3">
 <h3>Objectives</h3>
-<ol style="list-style-type: decimal">
-<li><p>Understand best practices on planning and executing a population genomics project based on ddRAD-seq (short read) type data</p></li>
-<li><p>Learn how to download genomic sequence data from the European Nucleotide Archive</p></li>
-<li><p>Familiarise yourself with the Stacks 2 bioinformatics pipeline to process raw reads</p></li>
-<li><p>Be able to generate your own output files after Stacks 2 processing for downstream analyses of population structure, phylogeny and genetic diveristy</p></li>
-<li><p>Conduct and understand several of these outputs (Admixture, sNMF, DAPC, RAxML, F-statistics)</p></li>
-</ol>
+<p><a href="https://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf">Discriminant Analyses of Principal Components</a> is also a method for investigating population structure, but is a little different that Admixture and sNMF in that it is free from assumptions of HWE and less sensitive to minor allele frequency thresholds (i.e. maybe more realistic for natural populations where pops are not static and may also have rare allelic diversity and private alleles)</p>
 <p><br />
 <br />
 </p>
 </div>
-<div id="background" class="section level3">
-<h3>Background</h3>
-<p>The reduction in costs for genomic data generation has reduced drastically in recent years. This cost reduction has led to the large-scale adoption of ddRAD-seq as a method for denovo Single Nucleotide Polymorphism SNP discovery in non-model organisms, where thousands of molecular markers can be used to answer ecological, evolutionary and conservation questions. In this course you’ll learn how to plan a project effectively, learn the data types, how to analyse them and what the outputs mean. There’s also the chance to analyse your own data (if you already have it) and earn an extra 0.5 ECTS.</p>
+<div id="load-data-and-convert-to-genind-format-for-adegenet" class="section level3">
+<h3>1. Load data and convert to genind format for Adegenet</h3>
+<p>Load the .dat input file that we will analyse. I’ve already converted this for you into a .dat (fstat format) file. I did this using <a href="http://www.cmpg.unibe.ch/software/PGDSpider/">PGDSpider</a> for your reference, but you don’t need to do that.</p>
+<p>Again, this is a fancy file structure which is basically just a matrix of individuals and genotypes across all SNPs…</p>
+<pre class="r"><code># Read in .dat file (fstat) format needed by Adegenet package for running DAPC
+library(adegenet)
+data &lt;- read.fstat(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/DAPC/Lflav.dat&quot;)
+## 
+##  Converting data from a FSTAT .dat file to a genind object... 
+## 
+## 
+## ...done.</code></pre>
+<p>We can check the size of the file with the length argument (should be 59 individuals)</p>
+<pre class="r"><code>length(indNames(data))
+## [1] 59</code></pre>
 <p><br />
 <br />
 </p>
 </div>
-<div id="literature" class="section level3">
-<h3>Literature</h3>
-<p>Andrews et al 2016. <a href="https://www.nature.com/articles/nrg.2015.28">Harnessing the power of RADseq for ecological and evolutionary genomics</a></p>
-<p>Rochette et a. 2019. <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.15253">Stacks 2: Analytical methods for paired-end sequencing improve RADseq-based population genomics</a></p>
-<p>Paris et al. 2017 <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12775">Lost in parameter space: a road map for stacks</a></p>
-<p>Barratt et al. 2018 <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/mec.14862">Vanishing refuge? Testing the forest refuge hypothesis in coastal East Africa using genome-wide sequence data for seven amphibians</a></p>
+<div id="run-the-dapc-and-plot-bic-scores" class="section level3">
+<h3>2. Run the DAPC and plot BIC scores</h3>
+<p>We then run the DAPC itself using find.clusters, max.n.clusters can be up to any number (&lt;indiviudals), but let’s set it to 10 here to keep in line with the Admixture and sNMF analyses. Take all possible PCAs (so 60, and press [enter]</p>
+<pre class="r"><code>grp &lt;- find.clusters(data, max.n.clust = 10, n.pca = 59, choose.n.clust = FALSE,
+    criterion = &quot;min&quot;)
+# the last 3 arguments here have automated this, highly recommended to remove
+# these and do it interactively in R by looking at the resulting plots Advice:
+# number of PCs to retain - here say (number of individuals - 1 to maximise the
+# information initially) number of clusters - here select a sensible lowest
+# BIC. In our case we automatically select 4 (min) because the elbow is very
+# clear, in other datasets this my not be the case...</code></pre>
+<p>It will ask you to choose the number of clusters. As you can see, K=4 again is best. We can look at some summary stuff here which is useful (BIC scores, best K, Population assignment per individual, number of Inds in each population cluster:</p>
+<pre class="r"><code>head(grp$Kstat)  # BIC scores per k
+grp$stat  # Best k based on BIC
+head(grp$grp, 59)  # Group membership (based on your defined number of clusters)
+grp$size  # Group size per k cluster
+
+x &lt;- as.data.frame(grp$Kstat)
+png(filename = &quot;./outputs/DAPC_Results_BIC_scores.png&quot;, type = &quot;quartz&quot;, height = 8,
+    width = 8, units = &quot;in&quot;, res = 300)
+plot(x$`grp$Kstat`, pch = 19, col = &quot;black&quot;, cex = 0.25, xlab = &quot;k clusters&quot;, ylab = &quot;Bayesian Information Criterion&quot;,
+    main = &quot;BIC across k&quot;)
+lines(x$`grp$Kstat`, lty = 1, lwd = 1.5, col = &quot;steelblue2&quot;)
+dev.off()
+##      K=1      K=2      K=3      K=4      K=5      K=6 
+## 376.6955 373.2774 371.9943 371.4241 372.7660 374.8831 
+##      K=4 
+## 371.4241 
+##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 
+##  1  1  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  3  3  1  1  1 
+## 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 
+##  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  3  1  1  1  1  1  1  1  1  2 
+## 53 54 55 56 57 58 59 
+##  2  2  2  2  2  2  2 
+## Levels: 1 2 3 4
+## [1] 29  8  3 19
+## quartz_off_screen 
+##                 2</code></pre>
+<p>Now let’s do the DAPC. Run the below code. Thsi time choose a lower number of retained PCAs, ideally where the curve starts to become less (e.g. 4 or 5 in this case). Press [enter] and then choose the number of discriminant functions to retain based on the eigenvalues. In this case you want to take all 3, but depends on the information content (F-statistic).</p>
+<pre class="r"><code># now do the DAPC
+dapc1 &lt;- dapc(data, grp$grp, n.pca = 5, n.da = 3)
+# same as above, this is usually interactive - the last 2 arguments here have
+# automated this, highly recommended to remove these and do it interactively in
+# R by looking at the resulting plots Advice: number of PCs to retain - now we
+# can be more selective, pick a number where the initial curve of the plot
+# starts to slow (in our case 4 or 5) number of discriminant functions to
+# retain - always more than one - general rule is to take anything which is
+# quite a lot higher than 0, so in this case say 3. If our eigenvalues here
+# showed two big bars and then a very small one we would take 2. More details
+# on how to interpret and select are found here:
+# https://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf</code></pre>
+<p><br />
+<br />
+</p>
+</div>
+<div id="make-dapc-plot-of-results-1-min" class="section level3">
+<h3>3. Make DAPC plot of results (&lt; 1 min)</h3>
+<p>Set some colours and then plot</p>
+<pre class="r"><code>myCol &lt;- c(&quot;blue&quot;, &quot;turquoise&quot;, &quot;lightblue&quot;, &quot;darkblue&quot;)
+png(&quot;./outputs/DAPC_Lflavomaculatus.png&quot;, width = 500, height = 500)
+scatter(dapc1, scree.da = TRUE, scree.pca = TRUE, bg = &quot;white&quot;, pch = 20, cell = 0,
+    cstar = 0, col = myCol, solid = 1, cex = 1.5, clab = 0, leg = FALSE, txt.leg = paste(&quot;Cluster&quot;,
+        1:4))
+dev.off()
+## quartz_off_screen 
+##                 2</code></pre>
+<p><br />
+<br />
+</p>
+</div>
+<div id="on-your-own" class="section level3">
+<h3>On your own…</h3>
+<p>If you want to, download PGDspider and try and convert the str file to an FSTAT file (.dat) as I did for you. Or if you want, try converting to other formats (e.g. phy, str etc)</p>
+<p><br />
+</p>
+<p>Mess around with PCAs retained and number of clusters to see how it affects the BIC values, curves and population assignment. It can be really tricky without good knowledge of true K, especially in not well structured populations. To be able to interactively play with the DAPC results, use the following code instead of the above in step #2:</p>
+<pre class="r"><code># grp &lt;- find.clusters(data, max.n.clust=10)</code></pre>
+<p><br />
+</p>
+<p>And the following when doing the actual DAPC:</p>
+<pre class="r"><code># dapc1 &lt;- dapc(data, grp$grp)</code></pre>
 </div>
 
 

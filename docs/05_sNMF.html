@@ -11,7 +11,7 @@
 
 
 
-<title>Estimating genetic diversity and population information from short read (ddRAD-seq) type data</title>
+<title>Tutorial: snMF</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -300,84 +300,137 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Estimating genetic diversity and population information from short read (ddRAD-seq) type data</h1>
+<h1 class="title toc-ignore">Tutorial: snMF</h1>
 
 </div>
 
 
 <p><br />
+<br />
 </p>
-<p>Date &amp; time: June 20-21 2022 (09:00-15:00)</p>
-<p>Location: German Centre for Integrative Biodiversity Research (iDiv), Puschstrasse 4, 04103, Leipzig. Room: Beehive (Ground floor)</p>
-<p>Teachers: <a href="https://cd-barratt.github.io/">Chris Barratt</a> &amp; <a href="https://www.idiv.de/en/profile/1062.html">Laura Mendez Cuellar</a>, sDiv and Evolution and Adaptation (iDiv)</p>
-<p><a href="https://www.idiv.de/en/ydiv/graduate-school/courses-and-events/estimating-genetic-diversity-and-population-information-from-short-read-ddrad-seq-type-data.html">Course summary</a> | <a href="https://cd-barratt.github.io/ddRAD-seq_workshop/">Course website</a></p>
-<p><br />
-</p>
-<div id="schedule" class="section level3">
-<h3>Schedule</h3>
-<p>Day 1 (20th June): 09:00 - 15:00</p>
-<ul>
-<li><p>Brief introductions and research topics of course leaders and course participants (2-3 mins each)</p></li>
-<li><p>Introductory lecture on population genomics and ddRAD-seq and which kinds of questions can be answered with these data</p></li>
-<li><p>Hands on session for downloading publicly available genomic data (e.g. from the European Nucleotide Archive)</p></li>
-<li><p>Hands on session for each of the major processing steps required for the Stacks 2 pipeline (process_radtags, denovo_map)</p></li>
-</ul>
-<p><br />
-</p>
-<p>Day 2 (21st June): 09:00 - 15:00</p>
-<p>Hands on sessions to analyse population structure, phylogeny and genetic diversity:</p>
-<ul>
-<li><p>Admixture (pop structure)</p></li>
-<li><p>sNMF (pop structure)</p></li>
-<li><p>DAPC (pop structure)</p></li>
-<li><p>RAxML (phylogenetic relationships)</p></li>
-<li><p>F-stats (FST, nucleotide diversity)</p></li>
-</ul>
-<p> <br />
-</p>
-</div>
-<div id="before-the-course-please" class="section level3">
-<h3>Before the course, please:</h3>
-<ul>
-<li><p>Bring your own computer and know how to use it</p></li>
-<li><p>Ensure you have working access to the UFZ EVE cluster and have a basic understanding of the job queuing system (i.e. how to submit jobs)</p></li>
-<li><p>Also an interface for file transfer would be useful - e.g. FileZilla, CyberDuck - see <a href="https://portal.idiv.de/nextcloud/index.php/s/oyP3FSFfwnKwiy9">here</a></p></li>
-<li><p>Install <a href="https://cran.r-project.org/bin/">R</a> (at least version 4) and <a href="https://www.rstudio.com/products/rstudio/download/#download">Rstudio</a> on your computer</p></li>
-<li><p>Read the course literature (see below)</p></li>
-</ul>
-<p><br />
-</p>
-<p>Please <a href="mailto:c.d.barratt@gmail.com,%20mailto:laura.mendezcue@gmail.com">contact us</a> if you have any questions!</p>
+<div id="timings" class="section level3">
+<h3>Timings</h3>
+<ol style="list-style-type: decimal">
+<li>Load data (&lt; 1 min)</li>
+<li>Run sNMF (3-4 mins)</li>
+<li>Plot CV scores (&lt; 1 min)</li>
+<li>Make barplot of Admixture results (&lt; 1 min)</li>
+</ol>
+<p>All done in R locally on your machine</p>
 <p><br />
 <br />
 </p>
 </div>
 <div id="objectives" class="section level3">
 <h3>Objectives</h3>
-<ol style="list-style-type: decimal">
-<li><p>Understand best practices on planning and executing a population genomics project based on ddRAD-seq (short read) type data</p></li>
-<li><p>Learn how to download genomic sequence data from the European Nucleotide Archive</p></li>
-<li><p>Familiarise yourself with the Stacks 2 bioinformatics pipeline to process raw reads</p></li>
-<li><p>Be able to generate your own output files after Stacks 2 processing for downstream analyses of population structure, phylogeny and genetic diveristy</p></li>
-<li><p>Conduct and understand several of these outputs (Admixture, sNMF, DAPC, RAxML, F-statistics)</p></li>
-</ol>
+<p>Again, using the same <a href="https://amphibiaweb.org/species/3649">Leptopelis flavomaculatus</a> data we will try a slightly different but very similar approach to look at population structure. Instead of Admixture we will use <a href="http://membres-timc.imag.fr/Olivier.Francois/LEA/tutorial.htm">sNMF</a> from the LEA R package this time</p>
 <p><br />
 <br />
 </p>
 </div>
-<div id="background" class="section level3">
-<h3>Background</h3>
-<p>The reduction in costs for genomic data generation has reduced drastically in recent years. This cost reduction has led to the large-scale adoption of ddRAD-seq as a method for denovo Single Nucleotide Polymorphism SNP discovery in non-model organisms, where thousands of molecular markers can be used to answer ecological, evolutionary and conservation questions. In this course you’ll learn how to plan a project effectively, learn the data types, how to analyse them and what the outputs mean. There’s also the chance to analyse your own data (if you already have it) and earn an extra 0.5 ECTS.</p>
+<div id="load-data" class="section level3">
+<h3>1. Load data</h3>
+<p>Load the .ped input file that we will analyse. This is a matrix (rows = number of individual samples, columns = genotypes at each locus). The first 6 columns are mandatory (family, individual, maternal/paternal IDs, Sex abd Phenotype). We actually only have the individual IDs so the others are defaulted out. You can read more about this PLNK, format here: <a href="https://zzz.bwh.harvard.edu/plink/data.shtml" class="uri">https://zzz.bwh.harvard.edu/plink/data.shtml</a></p>
+<pre class="r"><code># Read in ped file, convert to .geno format needed by LEA package for sNMF
+library(LEA)
+
+data = read.table(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/sNMF/Lflav.ped&quot;)
+output = ped2geno(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF/Lflav.ped&quot;)
+geno &lt;- read.geno(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF/Lflav.geno&quot;)</code></pre>
 <p><br />
 <br />
 </p>
 </div>
-<div id="literature" class="section level3">
-<h3>Literature</h3>
-<p>Andrews et al 2016. <a href="https://www.nature.com/articles/nrg.2015.28">Harnessing the power of RADseq for ecological and evolutionary genomics</a></p>
-<p>Rochette et a. 2019. <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.15253">Stacks 2: Analytical methods for paired-end sequencing improve RADseq-based population genomics</a></p>
-<p>Paris et al. 2017 <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12775">Lost in parameter space: a road map for stacks</a></p>
-<p>Barratt et al. 2018 <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/mec.14862">Vanishing refuge? Testing the forest refuge hypothesis in coastal East Africa using genome-wide sequence data for seven amphibians</a></p>
+<div id="run-snmf" class="section level3">
+<h3>2. Run sNMF</h3>
+<p>We can give sNMF a range of K to test, so let’s follow 1:10 like we did in Admixture so that we have comparable results. Here we set the ploidy to 2 (diploid organism, having 5 repetitions of each K value to test, so 50 total reps). We set entropy=T and project=‘new’). There are a bunch of things you can tweak (see here: <a href="http://membres-timc.imag.fr/Olivier.Francois/snmf/files/note.pdf" class="uri">http://membres-timc.imag.fr/Olivier.Francois/snmf/files/note.pdf</a>) but let’s keep this simple. Current settings here will take around 3-4 mins to complete</p>
+<p>Block to update:</p>
+<pre class="r"><code># Run snmf to look at structure
+k_range &lt;- 1:10
+geno.snmf &lt;- snmf((&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF/Lflav.geno&quot;),
+    K = k_range, entropy = T, ploidy = 2, rep = 5, project = &quot;new&quot;)</code></pre>
+<p><br />
+<br />
+</p>
+</div>
+<div id="plot-cv-scores" class="section level3">
+<h3>3. Plot CV scores</h3>
+<p>We will first set the plot margins and then set an output file (png) with specific sizes and resolutions Then we plot the results (first points, then a line to join the points) and save the file</p>
+<pre class="r"><code># plot CV scores
+sumpr2 &lt;- summary(geno.snmf)$crossEntropy
+sumpr &lt;- sumpr2[2, ]
+
+par(mar = c(2, 2, 2, 2))
+png(filename = &quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF_Results_CV_scores.png&quot;,
+    type = &quot;quartz&quot;, height = 8, width = 8, units = &quot;in&quot;, res = 300)
+plot(sumpr, lty = 2, lwd = 1.5, col = &quot;black&quot;, pch = 19, cex = 0.5, xlab = &quot;k clusters&quot;,
+    ylab = &quot;CV score&quot;, main = &quot;Cross validation scores across k (sNMF)&quot;)
+lines(sumpr, lwd = 2, col = &quot;steelblue2&quot;)
+dev.off()</code></pre>
+<p><br />
+<br />
+</p>
+</div>
+<div id="make-barplot-of-snmf-results" class="section level3">
+<h3>4. Make barplot of sNMF results</h3>
+<p>We’ll first do an automated thing to get the best value of K (which K value and which run of the 5 you made)</p>
+<pre class="r"><code># Choose K with lowest mean cross entropy
+K &lt;- c(1:10)[which.min(sumpr2[2, ])]  # K=4
+# Get the cross-entropy of each run for K
+ce &lt;- cross.entropy(species.snmf, K = K)
+# Select the run with the lowest cross-entropy
+best &lt;- which.min(ce)
+best</code></pre>
+<p>Next we will take the q values from the sNMF results for the selected K value and run (analagous to the Admixture Lflav.4.Q file). It is a matrix of 59 rows (one per individual) and 4 columns (i.e. K). The probability of membership to each population cluster is shown for each individual</p>
+<pre class="r"><code>Q_vals &lt;- Q(geno.snmf, K = K, run = best)
+sample_names &lt;- data[, 2]
+pop_assignment &lt;- as.data.frame(cbind(sample_names, Q_vals))
+
+ord = pop_assignment[order(pop_assignment$V4, pop_assignment$V1, pop_assignment$V2,
+    pop_assignment$V3), ]
+rownames(ord) &lt;- ord$sample_names
+ord &lt;- ord[, 2:5]
+
+par(mar = c(20, 4, 1, 1))
+bp = barplot(t(as.matrix(ord)), space = (0.04), col = c(&quot;blue&quot;, &quot;turquoise&quot;, &quot;darkblue&quot;,
+    &quot;lightblue&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1, las = 2, cex.names = 0.9)</code></pre>
+<p>The above plot is not so clean, very messy and not very pretty. Let’s reorder the output file so that it matches the order of individuals in the Admixture analyses. It can then be plotted for direct and easy comparison.</p>
+<pre class="r"><code># match ord_labels to the pop_assignment
+ord_labels &lt;- read.csv(&quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/sNMF/ord_labels_sNMF.csv&quot;)
+ord_labels_sample_name_only &lt;- as.data.frame(ord_labels)
+colnames(ord_labels_sample_name_only) &lt;- &quot;sample_name_only&quot;
+ord_labels_sample_name_only &lt;- substr(ord_labels_sample_name_only$sample_name_only,
+    1, 5)
+ord_labels_sample_name_only &lt;- as.data.frame(ord_labels_sample_name_only)
+ord_labels &lt;- cbind(ord_labels, ord_labels_sample_name_only)
+
+# now sort pop_assignment based on order in ord_labels$sample_name_only
+
+sorted_pop_assignment &lt;- pop_assignment[order(match(pop_assignment[, 1], ord_labels_sample_name_only[,
+    1])), ]
+row.names(sorted_pop_assignment) &lt;- sorted_pop_assignment$sample_names
+sorted_pop_assignment &lt;- sorted_pop_assignment[, 2:5]
+
+# plot the sNMF barplot for comparison with Admixture
+bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col = c(&quot;darkblue&quot;,
+    &quot;blue&quot;, &quot;lightblue&quot;, &quot;turquoise&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1,
+    las = 2, cex.names = 0.9)
+
+# save
+png(filename = &quot;/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF_Results_Barplot.png&quot;,
+    type = &quot;quartz&quot;, height = 8, width = 30, units = &quot;in&quot;, res = 300)
+bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col = c(&quot;darkblue&quot;,
+    &quot;blue&quot;, &quot;lightblue&quot;, &quot;turquoise&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1,
+    las = 2, cex.names = 0.9)
+dev.off()
+</code></pre>
+<p><br />
+<br />
+</p>
+</div>
+<div id="on-your-own" class="section level3">
+<h3>On your own…</h3>
+<p>If you want, try plotting k=1 - k=5, feel free to change colour schemes and the order of the tbl object If you have your own data you can try and use this script to plot your own outputs</p>
 </div>
 
 

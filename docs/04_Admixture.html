@@ -11,7 +11,7 @@
 
 
 
-<title>Estimating genetic diversity and population information from short read (ddRAD-seq) type data</title>
+<title>Tutorial: Admixture</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -300,84 +300,141 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Estimating genetic diversity and population information from short read (ddRAD-seq) type data</h1>
+<h1 class="title toc-ignore">Tutorial: Admixture</h1>
 
 </div>
 
 
 <p><br />
+<br />
 </p>
-<p>Date &amp; time: June 20-21 2022 (09:00-15:00)</p>
-<p>Location: German Centre for Integrative Biodiversity Research (iDiv), Puschstrasse 4, 04103, Leipzig. Room: Beehive (Ground floor)</p>
-<p>Teachers: <a href="https://cd-barratt.github.io/">Chris Barratt</a> &amp; <a href="https://www.idiv.de/en/profile/1062.html">Laura Mendez Cuellar</a>, sDiv and Evolution and Adaptation (iDiv)</p>
-<p><a href="https://www.idiv.de/en/ydiv/graduate-school/courses-and-events/estimating-genetic-diversity-and-population-information-from-short-read-ddrad-seq-type-data.html">Course summary</a> | <a href="https://cd-barratt.github.io/ddRAD-seq_workshop/">Course website</a></p>
-<p><br />
-</p>
-<div id="schedule" class="section level3">
-<h3>Schedule</h3>
-<p>Day 1 (20th June): 09:00 - 15:00</p>
-<ul>
-<li><p>Brief introductions and research topics of course leaders and course participants (2-3 mins each)</p></li>
-<li><p>Introductory lecture on population genomics and ddRAD-seq and which kinds of questions can be answered with these data</p></li>
-<li><p>Hands on session for downloading publicly available genomic data (e.g. from the European Nucleotide Archive)</p></li>
-<li><p>Hands on session for each of the major processing steps required for the Stacks 2 pipeline (process_radtags, denovo_map)</p></li>
-</ul>
-<p><br />
-</p>
-<p>Day 2 (21st June): 09:00 - 15:00</p>
-<p>Hands on sessions to analyse population structure, phylogeny and genetic diversity:</p>
-<ul>
-<li><p>Admixture (pop structure)</p></li>
-<li><p>sNMF (pop structure)</p></li>
-<li><p>DAPC (pop structure)</p></li>
-<li><p>RAxML (phylogenetic relationships)</p></li>
-<li><p>F-stats (FST, nucleotide diversity)</p></li>
-</ul>
-<p> <br />
-</p>
-</div>
-<div id="before-the-course-please" class="section level3">
-<h3>Before the course, please:</h3>
-<ul>
-<li><p>Bring your own computer and know how to use it</p></li>
-<li><p>Ensure you have working access to the UFZ EVE cluster and have a basic understanding of the job queuing system (i.e. how to submit jobs)</p></li>
-<li><p>Also an interface for file transfer would be useful - e.g. FileZilla, CyberDuck - see <a href="https://portal.idiv.de/nextcloud/index.php/s/oyP3FSFfwnKwiy9">here</a></p></li>
-<li><p>Install <a href="https://cran.r-project.org/bin/">R</a> (at least version 4) and <a href="https://www.rstudio.com/products/rstudio/download/#download">Rstudio</a> on your computer</p></li>
-<li><p>Read the course literature (see below)</p></li>
-</ul>
-<p><br />
-</p>
-<p>Please <a href="mailto:c.d.barratt@gmail.com,%20mailto:laura.mendezcue@gmail.com">contact us</a> if you have any questions!</p>
+<div id="timings" class="section level3">
+<h3>Timings</h3>
+<ol style="list-style-type: decimal">
+<li>Run admixture (in EVE cluster, ~3 min) and then copy results to your local machine</li>
+<li>Load data (&lt; 1 min)</li>
+<li>Plot CV scores (&lt; 1 min)</li>
+<li>Make barplot of Admixture results (&lt; 1 min)</li>
+</ol>
+<p>Step 1 done in EVE cluster, Steps 2-4 done locally on your machines</p>
 <p><br />
 <br />
 </p>
 </div>
 <div id="objectives" class="section level3">
 <h3>Objectives</h3>
-<ol style="list-style-type: decimal">
-<li><p>Understand best practices on planning and executing a population genomics project based on ddRAD-seq (short read) type data</p></li>
-<li><p>Learn how to download genomic sequence data from the European Nucleotide Archive</p></li>
-<li><p>Familiarise yourself with the Stacks 2 bioinformatics pipeline to process raw reads</p></li>
-<li><p>Be able to generate your own output files after Stacks 2 processing for downstream analyses of population structure, phylogeny and genetic diveristy</p></li>
-<li><p>Conduct and understand several of these outputs (Admixture, sNMF, DAPC, RAxML, F-statistics)</p></li>
-</ol>
+<p>For this exercise and the remainder of the workshop we will use some published amphibian data to look at population structure, phylogeny and genetic diversity estimates. The data are for <a href="https://amphibiaweb.org/species/3649">Leptopelis flavomaculatus</a>, a forest tree frog from Tanzania, and were published <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/mec.14862">here</a>.</p>
+<p><br />
+</p>
+<p>For this exercise in particular using <a href="https://dalexander.github.io/admixture/publications.html">Admixture</a> software, we will learn how to go from a Stacks output file to investigate population structure, find statistical support to show the ‘best’ explained population structure (i.e. number of clusters), and then plot a nice barplot to show population assignment for each individual.</p>
 <p><br />
 <br />
 </p>
 </div>
-<div id="background" class="section level3">
-<h3>Background</h3>
-<p>The reduction in costs for genomic data generation has reduced drastically in recent years. This cost reduction has led to the large-scale adoption of ddRAD-seq as a method for denovo Single Nucleotide Polymorphism SNP discovery in non-model organisms, where thousands of molecular markers can be used to answer ecological, evolutionary and conservation questions. In this course you’ll learn how to plan a project effectively, learn the data types, how to analyse them and what the outputs mean. There’s also the chance to analyse your own data (if you already have it) and earn an extra 0.5 ECTS.</p>
+<div id="run-admixture-on-the-eve-cluster" class="section level3">
+<h3>1. Run Admixture (on the EVE cluster)</h3>
+<p>#This is all done in the EVE cluster, you can make your own scripts to do this or use the one provided #(run_Admixture.sh). It can be submitted via sbatch in the EVE cluster, but be sure to modify the email address #and output paths to your own details.</p>
+<pre class="r"><code>#!/bin/bash                                                                                                                            
+#SBATCH --job-name=Admixture
+#SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
+#SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
+#SBATCH --output=~/work/ddRAD-seq_workshop/job_logs/%x-%j.log
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=15G
+#SBATCH --time=4:00:00
+
+#load environment
+module purge
+module load Anaconda3
+conda activate /global/apps/plink_1.90
+
+# Converting ped and map files to bed format for Admixture
+plink --file ~/work/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/Lflav.ped --make-bed --recode --out ~/work/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/Lflav
+
+#run admixture
+cd ~/work/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/
+bash
+conda activate /gpfs0/global/apps/stacks_2.61
+for K in 1 2 3 4 5 6 7 8 9 10; \
+do admixture --cv=10 ./Lflav.bed $K| tee log_Lflav.${K}.out; done
+
+# grep to combine all results
+grep -h CV log_Lflav*.out &gt; ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture.txt
+
+#sed to clean results for later analysis
+sed -e &#39;s/CV error (K=//g&#39; ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture.txt | sed &#39;s/)://g&#39; &gt; ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt
+
+# replace all single digit numbers to begin with 0s for numerical sorting
+sed -e &#39;s/1 /01 /g&#39; ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt \
+| sed -e &#39;s/2 /02 /g&#39; \
+| sed -e &#39;s/3 /03 /g&#39; \
+| sed -e &#39;s/4 /04 /g&#39; \
+| sed -e &#39;s/5 /05 /g&#39; \
+| sed -e &#39;s/6 /06 /g&#39; \
+| sed -e &#39;s/7 /07 /g&#39; \
+| sed -e &#39;s/8 /08 /g&#39; \
+| sed -e &#39;s/9 /09 /g&#39;&gt; ./tmp.txt\
+
+# sort output file (01-10) and remove old temporary one
+sort ./tmp.txt &gt; ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt
+rm -rf ./tmp.txt</code></pre>
+<p><br />
+</p>
+<p>When the Admixture job is complete we need to copy the output files to our desktop. We can use Cyberduck/FileZilla for this (I’ll show you), or we can use rsync. To use rsync open up another version of your Terminal/PuTTy and type the following:</p>
+<pre class="r"><code>
+rsync(XXXXXXXXXXXXXXXXX)</code></pre>
 <p><br />
 <br />
 </p>
 </div>
-<div id="literature" class="section level3">
-<h3>Literature</h3>
-<p>Andrews et al 2016. <a href="https://www.nature.com/articles/nrg.2015.28">Harnessing the power of RADseq for ecological and evolutionary genomics</a></p>
-<p>Rochette et a. 2019. <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.15253">Stacks 2: Analytical methods for paired-end sequencing improve RADseq-based population genomics</a></p>
-<p>Paris et al. 2017 <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12775">Lost in parameter space: a road map for stacks</a></p>
-<p>Barratt et al. 2018 <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/mec.14862">Vanishing refuge? Testing the forest refuge hypothesis in coastal East Africa using genome-wide sequence data for seven amphibians</a></p>
+<div id="load-data" class="section level3">
+<h3>2. Load data</h3>
+<p>Load the cleaned Admixture output file that we will analyse. This is a simple text file with the number of clusters (K) and the corresponding 10-fold cross-validation(CV) score. Be aware here and further on that directory separators are different between mac (/) and Windows (), so check you are using the correct ones if you are having trouble reading files</p>
+<pre class="r"><code>results &lt;- read.delim(&quot;./RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt&quot;,
+    sep = &quot; &quot;, header = FALSE)</code></pre>
+<p><br />
+<br />
+</p>
+</div>
+<div id="plot-cv-scores" class="section level3">
+<h3>3. Plot CV scores</h3>
+<p>We will first set the plot margins and then set an output file (png) with specific sizes and resolutions Then we plot the results (first points, then a line to join the points)</p>
+<pre class="r"><code>par(mar = c(2, 2, 2, 2))
+png(filename = &quot;./Admixture_Results_CV_scores.png&quot;, type = &quot;quartz&quot;, height = 8,
+    width = 8, units = &quot;in&quot;, res = 300)
+plot(results, pch = 19, col = &quot;black&quot;, cex = 0.25, xlab = &quot;k clusters&quot;, ylab = &quot;CV score&quot;,
+    main = &quot;Cross validation scores across k (Admixture&quot;)
+lines(results, lty = 1, lwd = 1.5, col = &quot;steelblue2&quot;)
+dev.off()</code></pre>
+<p>Because this dataset is for relatively highly structured (low-dispersal) amphibians, the ‘elbow’ in the plot is very clear - with a lower CV score at K=4. This is not always the case for all datasets, so other approaches might be useful to use a few different methods to look at population structure (reviewers anyway generally like this approach).</p>
+<p><br />
+<br />
+</p>
+</div>
+<div id="make-barplot-of-admixture-results" class="section level3">
+<h3>4. Make barplot of Admixture results</h3>
+<p>Now that we know the optimal value of K we can plot the Admixture coefficients across all of our samples (n=59 in this case). We’ll read the Lflav.4.Q output file from Admixture and order it to make it look nicer. We’ll then plot it, add individual labels for each sample and then save the final plot.</p>
+<pre class="r"><code># plot bars
+tbl = read.table(&quot;./data/L_flavomaculatus/Outputs/Admixture/Lflav.4.Q&quot;)
+ord = tbl[order(tbl$V1, tbl$V3, tbl$V2, tbl$V4), ]
+png(filename = &quot;./outputs/Admixture_Results_Barplot.png&quot;, type = &quot;quartz&quot;, height = 8,
+    width = 30, units = &quot;in&quot;, res = 300)
+labels &lt;- read.csv(&quot;./data/L_flavomaculatus/Inputs/Admixture/pop_labels.csv&quot;, header = FALSE)
+labels &lt;- data.frame(labels[, 1])
+ord_with_labels &lt;- data.frame(ord[, 1:4], row.names = labels[, 1])
+par(mar = c(20, 4, 1, 1))
+bp = barplot(t(as.matrix(ord_with_labels)), space = (0.04), col = c(&quot;blue&quot;, &quot;turquoise&quot;,
+    &quot;darkblue&quot;, &quot;lightblue&quot;), xlab = &quot;&quot;, ylab = &quot;Ancestry&quot;, border = 1, las = 2,
+    cex.names = 0.9)
+dev.off()
+</code></pre>
+<p><br />
+<br />
+</p>
+</div>
+<div id="on-your-own" class="section level3">
+<h3>On your own…</h3>
+<p>If you want, try plotting k=1 - k=5, feel free to change colour schemes and the order of the tbl object If you have your own data you can try and use this script to plot your own outputs</p>
 </div>
 
 

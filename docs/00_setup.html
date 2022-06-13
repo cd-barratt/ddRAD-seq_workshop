@@ -11,7 +11,7 @@
 
 
 
-<title>Estimating genetic diversity and population information from short read (ddRAD-seq) type data</title>
+<title>Setting up the data and scripts for analysis</title>
 
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -300,84 +300,66 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Estimating genetic diversity and population information from short read (ddRAD-seq) type data</h1>
+<h1 class="title toc-ignore">Setting up the data and scripts for analysis</h1>
 
 </div>
 
 
 <p><br />
+<br />
 </p>
-<p>Date &amp; time: June 20-21 2022 (09:00-15:00)</p>
-<p>Location: German Centre for Integrative Biodiversity Research (iDiv), Puschstrasse 4, 04103, Leipzig. Room: Beehive (Ground floor)</p>
-<p>Teachers: <a href="https://cd-barratt.github.io/">Chris Barratt</a> &amp; <a href="https://www.idiv.de/en/profile/1062.html">Laura Mendez Cuellar</a>, sDiv and Evolution and Adaptation (iDiv)</p>
-<p><a href="https://www.idiv.de/en/ydiv/graduate-school/courses-and-events/estimating-genetic-diversity-and-population-information-from-short-read-ddrad-seq-type-data.html">Course summary</a> | <a href="https://cd-barratt.github.io/ddRAD-seq_workshop/">Course website</a></p>
+<p>To get us set up all with files and directory structure that you’ll need, let’s do the following together in the EVE cluster…</p>
 <p><br />
+<br />
 </p>
-<div id="schedule" class="section level3">
-<h3>Schedule</h3>
-<p>Day 1 (20th June): 09:00 - 15:00</p>
-<ul>
-<li><p>Brief introductions and research topics of course leaders and course participants (2-3 mins each)</p></li>
-<li><p>Introductory lecture on population genomics and ddRAD-seq and which kinds of questions can be answered with these data</p></li>
-<li><p>Hands on session for downloading publicly available genomic data (e.g. from the European Nucleotide Archive)</p></li>
-<li><p>Hands on session for each of the major processing steps required for the Stacks 2 pipeline (process_radtags, denovo_map)</p></li>
-</ul>
-<p><br />
-</p>
-<p>Day 2 (21st June): 09:00 - 15:00</p>
-<p>Hands on sessions to analyse population structure, phylogeny and genetic diversity:</p>
-<ul>
-<li><p>Admixture (pop structure)</p></li>
-<li><p>sNMF (pop structure)</p></li>
-<li><p>DAPC (pop structure)</p></li>
-<li><p>RAxML (phylogenetic relationships)</p></li>
-<li><p>F-stats (FST, nucleotide diversity)</p></li>
-</ul>
-<p> <br />
-</p>
-</div>
-<div id="before-the-course-please" class="section level3">
-<h3>Before the course, please:</h3>
-<ul>
-<li><p>Bring your own computer and know how to use it</p></li>
-<li><p>Ensure you have working access to the UFZ EVE cluster and have a basic understanding of the job queuing system (i.e. how to submit jobs)</p></li>
-<li><p>Also an interface for file transfer would be useful - e.g. FileZilla, CyberDuck - see <a href="https://portal.idiv.de/nextcloud/index.php/s/oyP3FSFfwnKwiy9">here</a></p></li>
-<li><p>Install <a href="https://cran.r-project.org/bin/">R</a> (at least version 4) and <a href="https://www.rstudio.com/products/rstudio/download/#download">Rstudio</a> on your computer</p></li>
-<li><p>Read the course literature (see below)</p></li>
-</ul>
-<p><br />
-</p>
-<p>Please <a href="mailto:c.d.barratt@gmail.com,%20mailto:laura.mendezcue@gmail.com">contact us</a> if you have any questions!</p>
+<div id="login-to-the-eve-cluster" class="section level3">
+<h3>1. Login to the EVE cluster</h3>
+<p>First we will login to EVE, using either Terminal if you’re a mac user, or PuTTy if you’re a Windows user. You might need to make sure your VPN is connected to access.</p>
+<pre class="r"><code># Open your Terminal (Mac) or PuTTy (Windows)
+ssh USER@idiv-gateway.ufz.de
+# [enter your password]
+ssh frontend1
+# [enter your password]</code></pre>
 <p><br />
 <br />
 </p>
 </div>
-<div id="objectives" class="section level3">
-<h3>Objectives</h3>
-<ol style="list-style-type: decimal">
-<li><p>Understand best practices on planning and executing a population genomics project based on ddRAD-seq (short read) type data</p></li>
-<li><p>Learn how to download genomic sequence data from the European Nucleotide Archive</p></li>
-<li><p>Familiarise yourself with the Stacks 2 bioinformatics pipeline to process raw reads</p></li>
-<li><p>Be able to generate your own output files after Stacks 2 processing for downstream analyses of population structure, phylogeny and genetic diveristy</p></li>
-<li><p>Conduct and understand several of these outputs (Admixture, sNMF, DAPC, RAxML, F-statistics)</p></li>
-</ol>
+<div id="copy-the-directory-we-provide-in-public-to-your-own-workspace-will-take-a-few-mins" class="section level3">
+<h3>2. Copy the directory we provide in /public/ to your own workspace (will take a few mins)</h3>
+<p>Now we’ll copy the directory which is all ready to your own workspace. Ideally it’s best practice to have data in a /data/ directory but this will get quite complicated with all of us, so let’s keep it simple and store in your own ~/work directories</p>
+<pre class="r"><code># This line will copy all of the files and directories to your own work space (the ~ symbol )
+cp -r /public/ddRAD-seq_workshop/ ~/work/
+</code></pre>
 <p><br />
 <br />
 </p>
 </div>
-<div id="background" class="section level3">
-<h3>Background</h3>
-<p>The reduction in costs for genomic data generation has reduced drastically in recent years. This cost reduction has led to the large-scale adoption of ddRAD-seq as a method for denovo Single Nucleotide Polymorphism SNP discovery in non-model organisms, where thousands of molecular markers can be used to answer ecological, evolutionary and conservation questions. In this course you’ll learn how to plan a project effectively, learn the data types, how to analyse them and what the outputs mean. There’s also the chance to analyse your own data (if you already have it) and earn an extra 0.5 ECTS.</p>
+<div id="move-the-subfolder-scripts-from-your-workddrad-seq_workshop-to-submit_scriptsdd-rad-seq_workshop" class="section level3">
+<h3>3. Move the subfolder ‘scripts’ from your ~/work/ddRAD-seq_workshop to ~/submit_scripts/dd-RAD-seq_workshop</h3>
+<p>We do however want to make sure that our submit scripts are kept away in a separate folder. If you already have a folder for submitting scripts then you can move it there, otherwise I suggest you make one as follows:</p>
+<pre class="r"><code># This code will make a ddRAD-seq_workshop folder inside a submit_scripts folder in your home directory (~/)
+cd ~
+mkdir ./submit_scripts
+mkdir ./submit_scripts/ddRAD-seq_workshop</code></pre>
+<p><br />
+</p>
+<p>And then move the files as follows:</p>
+<pre class="r"><code># This line will move scripts to your own submit_scripts directory
+mv -r ~/work/ddRAD-seq_workshop/scripts ~/submit_scripts/ddRAD-seq_workshop/
+</code></pre>
+<p><br />
+</p>
+<p>OK, so now you should have a ddRAD-seq_workshop folder in your ~/work directory and another one in your ~/submit_scripts directory. You can check this by navigating around using cd ~/work or cd ~/submit_scripts and using ls to view the subdirectories and files. You can move one directory up simply using cd ../</p>
 <p><br />
 <br />
 </p>
 </div>
-<div id="literature" class="section level3">
-<h3>Literature</h3>
-<p>Andrews et al 2016. <a href="https://www.nature.com/articles/nrg.2015.28">Harnessing the power of RADseq for ecological and evolutionary genomics</a></p>
-<p>Rochette et a. 2019. <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.15253">Stacks 2: Analytical methods for paired-end sequencing improve RADseq-based population genomics</a></p>
-<p>Paris et al. 2017 <a href="https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12775">Lost in parameter space: a road map for stacks</a></p>
-<p>Barratt et al. 2018 <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/mec.14862">Vanishing refuge? Testing the forest refuge hypothesis in coastal East Africa using genome-wide sequence data for seven amphibians</a></p>
+<div id="install-packages-needed-in-r" class="section level3">
+<h3>4. Install packages needed in R</h3>
+<p>You can exit the EVE cluster now, and open RStudio in your computer. In the Console (bottom left panel usually), please copy and paste the following text, this will install all the packages you will need for the analyses (not so many for R). It might ask some questions on where to install from, you can say 1. All. If asked do you want to build this package from source you can say yes.</p>
+<pre class="r"><code># This line will install the required packages
+install.packages(c(&quot;adegenet&quot;, &quot;LEA&quot;, &quot;dplyr&quot;))
+</code></pre>
 </div>
 
 
