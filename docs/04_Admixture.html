@@ -380,11 +380,12 @@ sort ./tmp.txt &gt; ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptope
 rm -rf ./tmp.txt</code></pre>
 <p><br />
 </p>
-<p>When the Admixture job is complete we need to copy the output files to our desktop. We can use Cyberduck/FileZilla for this (I’ll show you), or we can use rsync. To use rsync open up another version of your Terminal/PuTTy and type the following:</p>
-<pre class="r"><code>
-rsync(XXXXXXXXXXXXXXXXX)</code></pre>
+<p>When the Admixture job is complete we need to copy the output files to our desktop. We can use Cyberduck/FileZilla for this (I’ll show you), or we can use <a href="https://wiki.ufz.de/eve/index.php/File_Transfer">rsync</a>. To use rsync open up another version of your Terminal/PuTTy and type the following:</p>
+<pre class="r"><code># transfer from the cluster
+rsync -avhP -e &#39;ssh -p 8022&#39; \
+  barratt@localhost:~/work/ddRAD-seq_workshop \
+  /Users/cb76kecu/Desktop</code></pre>
 <p><br />
-<br />
 </p>
 </div>
 <div id="load-data" class="section level3">

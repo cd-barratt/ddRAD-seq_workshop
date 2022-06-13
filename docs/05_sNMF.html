@@ -330,7 +330,7 @@ $(document).ready(function () {
 </div>
 <div id="load-data" class="section level3">
 <h3>1. Load data</h3>
-<p>Load the .ped input file that we will analyse. This is a matrix (rows = number of individual samples, columns = genotypes at each locus). The first 6 columns are mandatory (family, individual, maternal/paternal IDs, Sex abd Phenotype). We actually only have the individual IDs so the others are defaulted out. You can read more about this PLNK, format here: <a href="https://zzz.bwh.harvard.edu/plink/data.shtml" class="uri">https://zzz.bwh.harvard.edu/plink/data.shtml</a></p>
+<p>Load the .ped input file that we will analyse. This is a matrix (rows = number of individual samples, columns = genotypes at each locus). The first 6 columns are mandatory (family, individual, maternal/paternal IDs, Sex abd Phenotype). We actually only have the individual IDs so the others are defaulted out. You can read more about this PLNK, format <a href="https://zzz.bwh.harvard.edu/plink/data.shtml">here</a></p>
 <pre class="r"><code># Read in ped file, convert to .geno format needed by LEA package for sNMF
 library(LEA)
 
@@ -430,7 +430,7 @@ dev.off()
 </div>
 <div id="on-your-own" class="section level3">
 <h3>On your own…</h3>
-<p>If you want, try plotting k=1 - k=5, feel free to change colour schemes and the order of the tbl object If you have your own data you can try and use this script to plot your own outputs</p>
+<p>Like with Admixture, If you want, try plotting k=1 - k=5, feel free to change colour schemes and the order of the individuals. Again, you can edit the number of reps from 5 to 10 or higher for example. If you have your own data you can try and use this script to plot your own outputs</p>
 </div>
 
 
