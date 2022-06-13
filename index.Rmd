@@ -93,7 +93,7 @@ In this course you'll learn how to plan a project effectively, learn the data ty
 
 Andrews et al 2016. [Harnessing the power of RADseq for ecological and evolutionary genomics](https://www.nature.com/articles/nrg.2015.28)
 
-Rochette et a. 2019. [Stacks 2: Analytical methods for paired-end sequencing improve RADseq-based population genomics](https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.15253)
+Rochette et aL. 2019. [Stacks 2: Analytical methods for paired-end sequencing improve RADseq-based population genomics](https://onlinelibrary.wiley.com/doi/abs/10.1111/mec.15253)
 
 Paris et al. 2017 [Lost in parameter space: a road map for stacks](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12775)
 
