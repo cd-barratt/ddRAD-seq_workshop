@@ -29,7 +29,7 @@ Day 1 (20th June): 09:00 - 15:00
 
 * Stacks 2 lecture (main processing steps)
 
-* Hands on session for each of the major processing steps required for the Stacks 2 pipeline (process_radtags, denovo_map)
+* Hands on session for each of the major processing steps required for the Stacks pipeline (process_radtags, denovo_map)
 
 \
 
@@ -45,7 +45,7 @@ Hands on sessions to analyse population structure, phylogeny and genetic diversi
 
 * RAxML (phylogenetic relationships)
 
-* F-stats (FST, nucleotide diversity)
+* F-stats (FST, genetic diversity)
 
 \ 
 \
@@ -73,9 +73,9 @@ Please [contact us](mailto:c.d.barratt@gmail.com, mailto:laura.mendezcue@gmail.c
 
 2.  Learn how to download genomic sequence data from the European Nucleotide Archive
 
-3.	Familiarise yourself with the Stacks 2 bioinformatics pipeline to process raw reads 
+3.	Familiarise yourself with the Stacks 2 bioinformatic pipeline to process raw reads 
 
-4.	Be able to generate your own output files after Stacks 2 processing for downstream analyses of population structure, phylogeny and genetic diversity
+4.	Be able to generate your own output files after Stacks processing for downstream analyses of population structure, phylogeny and genetic diversity
 
 5.  Run analyses to perform (Admixture, sNMF, DAPC, RAxML, F-statistics), understand what you've done and how to interpret the outputs
 
@@ -84,8 +84,9 @@ Please [contact us](mailto:c.d.barratt@gmail.com, mailto:laura.mendezcue@gmail.c
 
 ### Background
 
-The reduction in costs for genomic data generation has reduced drastically in recent years. This cost reduction has led to the large-scale adoption of ddRAD-seq as a method for denovo Single Nucleotide Polymorphism SNP discovery in non-model organisms, where thousands of molecular markers can be used to answer ecological, evolutionary and conservation questions.
-In this course you'll learn how to plan a project effectively, learn the data types, how to analyse them and what the outputs mean. There's also the chance to analyse your own data (if you already have it) and earn an extra 0.5 ECTS.
+The reduction in costs for genomic data generation has reduced drastically in recent years. This cost reduction has led to the large-scale adoption of ddRAD-seq as a method for denovo Single Nucleotide Polymorphism SNP discovery in non-model organisms, where thousands of molecular markers can be used to answer ecological, evolutionary and conservation questions that were previously not possible to answer.
+
+In this course you'll learn how to plan a ddRAD-seq style project effectively, learn the data types, how to analyse them and what the outputs mean. There's also the chance to analyse your own data (if you already have it) and earn an extra 0.5 ECTS.
 
 \
 \

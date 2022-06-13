@@ -89,14 +89,15 @@ rm -rf ./tmp.txt
 
 \
 
-When the Admixture job is complete we need to copy the output files to our desktop. We can use Cyberduck/FileZilla for this (I'll show you), or we can use rsync. To use rsync open up another version of your Terminal/PuTTy and type the following:
+When the Admixture job is complete we need to copy the output files to our desktop. We can use Cyberduck/FileZilla for this (I'll show you), or we can use [rsync](https://wiki.ufz.de/eve/index.php/File_Transfer). To use rsync open up another version of your Terminal/PuTTy and type the following:
 
 ```{r}
-
-rsync(XXXXXXXXXXXXXXXXX)
+# transfer from the cluster
+rsync -avhP -e 'ssh -p 8022' \
+  barratt@localhost:~/work/ddRAD-seq_workshop \
+  /Users/cb76kecu/Desktop
 ```
 
-\
 \
 
 ### 2. Load data
@@ -148,5 +149,4 @@ dev.off()
 
 ### On your own...
 
-If you want, try plotting k=1 - k=5, feel free to change colour schemes and the order of the tbl object
-If you have your own data you can try and use this script to plot your own outputs
+If you want, try plotting k=1 - k=5, feel free to change colour schemes and the order of the tbl object. You can also edit the CV validation method t be --cv=5 for example when running Admixture. If you have your own data you can try and use this script to run Admixture and then plot your own outputs

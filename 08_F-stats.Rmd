@@ -34,17 +34,16 @@ In this exercise we will use some basic output files from Stacks that I've alrea
 \
 \
 
-### 1. Run F-stats to calculate genetic diversity and FST
+### 1. Run populations with --fstats flag to calculate genetic diversity and FST
 #This is all done in the EVE cluster, will be fairly quick (ca. 10 mins)
 
 ```{r}
 
 ### RAxML
 #!/bin/bash                                                                                                                            
-#SBATCH --job-name=RAxML
+#SBATCH --job-name=FST_genetic_diversity
 #SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
-#SBATCH --chdir /data/barratt  
 #SBATCH --output=~/work/ddRAD-seq_workshop/job_logs/%x-%j.log
 #SBATCH --cpus-per-task=1 
 #SBATCH --mem-per-cpu=20G
@@ -57,8 +56,29 @@ module load Anaconda3
 conda activate /gpfs0/global/apps/stacks_2.61
 
 
-XXX
-populations -popmap = outputs
+cd ~/work/ddRAD-seq_workshop/data/Exercises_4-8/FST_genetic_diversity/
+# populations - 
+# -P = working directory 
+# -M = population map
+# -t = max number of threads
+# -m = coverage threshold
+# -p = population limit threshold to include loci
+# -r = individual limit threshold (per population) to include loci
+# --structure --phylip = output file in structure/phylip format
+# --write_random_snp = write only one random snp per locus
+# --min_maf 0.05 = specify minimum minor allele frequencies to include loci
+
+populations -P ~/work/ddRAD-seq_workshop/data/Exercises_4-8/FST_genetic_diversity/ -O ~/work/ddRAD-seq_workshop/data/Exercises_4-8/FST_genetic_diversity/ -M ~/work/ddRAD-seq_workshop/data/Exercises_4-8/FST_genetic_diversity/Lflav_popmap -t 1 -p 4 -r 0.8 --genepop --fstats --min-maf 0.05
+
+# now rename the output files to something meaningful for that analysis
+mv ./batch_1.haplotypes.tsv ./Lflav_phy.haplotypes.tsv
+mv ./batch_1.hapstats.tsv ./Lflav_phy.hapstats.tsv
+mv ./batch_1.populations.log ./Lflav_phy.populations.log
+mv ./batch_1.structure.tsv ./Lflav_phy.tsv
+mv ./batch_1.sumstats_summary.tsv ./Lflav_phy.sumstats_summary.tsv
+mv ./batch_1.sumstats.tsv ./Lflav_phy.sumstats.tsv
+
+  
 
 ```
 
