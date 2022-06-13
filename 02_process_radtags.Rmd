@@ -1,0 +1,93 @@
+---
+title: 'Tutorial: process_radtags'
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
+                      echo=TRUE, warning=FALSE, message=FALSE,
+                      tidy = TRUE, collapse = TRUE,
+                      results = 'hold')
+```
+\
+\
+
+### Timings 
+  1. Run process_radtags (ca. 3 hours)
+  
+All done in EVE cluster
+     
+\
+\
+
+### Objectives
+
+In this exercise we will run [process_radtags](https://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php) in Stacks 2 to demultiplex the raw sequence reads from each sequenced library. This will give you the outputs for each individual that you have in the libraries, each identified by the relevant barcodes which you supply using the barcodes file when running process_radtags
+
+\
+
+We will run process_radtags on the Myotis escalerai data that we downloaded in Exercise 1, but the process will be the same for any data that you generate yourself (i.e. raw Illumina sequence read files of your libraries)
+
+
+\
+\
+
+### 1. Run process_radtags
+
+This is all done in the EVE cluster, it will take some time and in the meantime we do other things, but at least it gives you a feel for how you go from sequencer files to individual files
+
+```{r}
+# process_radtags####
+
+#!/bin/bash                                                                                                                            
+#SBATCH --job-name=process_radtags
+#SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
+#SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
+#SBATCH --output=~/work/ddRAD-seq_workshop/job_logs/%x-%j.log
+#SBATCH --cpus-per-task=1 
+#SBATCH --mem-per-cpu=8G
+#SBATCH --time=168:00:00
+ 
+
+## Load modules and activate software
+
+module purge
+module load Anaconda3
+conda activate /gpfs0/global/apps/stacks_2.61
+ 
+# process_radtags - take raw data from sequencer and output sequences per individual using barcodes and restriction enzyme information
+# -p = file path of raw data from sequencer 
+# -o = output file path of where you want your individual data to go 
+# -b = barcode identifier (one file showing all barcodes for each individual) 
+# --inline_inline: barcode is inline with sequence, occurs on single and paired-end read.
+# --renz_1 = restriction enzyme used
+# --renz_2 = restriction enzyme used
+# -c,--clean = clean data, remove any read with an uncalled base.
+# -q,--quality = discard reads with low quality scores.
+# --filter_illumina = discard reads that have been marked by Illumina's chastity/purity filter as failing.
+# -s = set the score limit. If the average score within the sliding window drops below this value, the read is discarded (default 10).i
+# -i = input file type, either 'fastq', 'gzfastq' (gzipped fastq), 'bam', or 'bustard' (default: guess, or gzfastq if unable to).
+# -y = output type, either 'fastq', 'gzfastq', 'fasta', or 'gzfasta' (default: match input type).
+# -t = truncate final read length to this value.
+
+DATA_PATH=~/work/ddRAD-seq_workshop/data/Exercise_2/
+
+process_radtags -1 $DATA_PATH/raw/BAT_01_NoIndex_L008_R1_001.fastq.gz -2 $DATA_PATH/raw/BAT_01_NoIndex_L008_R2_001.fastq.gz -o $DATA_PATH/demultiplexed/ -b $DATA_PATH/barcodes/barcodes_1 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
+
+
+process_radtags -1 $DATA_PATH/raw/BAT_01_NoIndex_L008_R1_001.fastq.gz -2 $DATA_PATH/raw/BAT_01_NoIndex_L008_R2_001.fastq.gz -o $DATA_PATH/demultiplexed/ -b $DATA_PATH/barcodes/barcodes_1 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
+
+```
+
+\
+\
+
+### On your own...  
+If you want to investigate this further at some point you can try it yourself now for barcodes_2, barcodes_3, barcodes_4, barcodes_5, barcodes_6 (files in the barcodes directories). Each time running process_radtags will search for the individuals identified by the relevant barcodes that you supply.
+
+\
+
+You can also mess around with the restriction enzymes (--renz1, --renz2) and see how these being misspecified for the dataset should result in hardly any data. Same thing with the way the barcodes are read - specifying the wrong combination of indexes (e.g. inline-index). You can also mess around with the s and t parameters for the quality control of the reads you process
+

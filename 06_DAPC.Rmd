@@ -1,0 +1,129 @@
+---
+title: 'Tutorial: Discriminant Analysis of Principal Components (DAPC)'
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, 
+                      echo=TRUE, warning=FALSE, message=FALSE,
+                      tidy = TRUE, collapse = TRUE,
+                      results = 'hold')
+knitr::include_graphics
+```
+
+\
+\
+
+### Timings
+
+  1. Load data and convert to genind format for Adegenet (< 1 min)
+  2. Run the DAPC and plot the BIC scores (3 mins)
+  3. Make barplot of Admixture results (< 1 min)
+
+All done in R locally on your machine
+  
+\
+\
+
+### Objectives
+
+[Discriminant Analyses of Principal Components](https://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf) is also a method for investigating population structure, but is a little different that Admixture and sNMF in that it is free from assumptions of HWE and less sensitive to minor allele frequency thresholds (i.e. maybe more realistic for natural populations where pops are not static and may also have rare allelic diversity and private alleles)
+
+\
+\
+
+### 1. Load data and convert to genind format for Adegenet
+Load the .dat input file that we will analyse. I've already converted this for you into a .dat (fstat format) file. I did this using [PGDSpider](http://www.cmpg.unibe.ch/software/PGDSpider/) for your reference, but you don't need to do that.
+
+Again, this is a fancy file structure which is basically just a matrix of individuals and genotypes across all SNPs...
+
+```{r}
+# Read in .dat file (fstat) format needed by Adegenet package for running DAPC
+library(adegenet)
+data <- read.fstat('/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/DAPC/Lflav.dat')
+```
+
+We can check the size of the file with the length argument (should be 59 individuals)
+```{r}
+length(indNames(data))
+```
+
+\
+\
+
+### 2. Run the DAPC and plot BIC scores
+We then run the DAPC itself using find.clusters, max.n.clusters can be up to any number (<indiviudals), but let's set it to 10 here to keep in line with the Admixture and sNMF analyses. Take all possible PCAs (so 60, and press [enter]
+```{r}
+grp <- find.clusters(data, max.n.clust=10, n.pca=59, choose.n.clust = FALSE, criterion = "min") 
+# the last 3 arguments here have automated this, highly recommended to remove these and do it interactively in R by looking at the resulting plots
+# Advice:
+# number of PCs to retain - here say (number of individuals - 1 to maximise the information initially)
+# number of clusters - here select a sensible lowest BIC. In our case we automatically select 4 (min) because the elbow is very clear, in other datasets this my not be the case...
+```
+It will ask you to choose the number of clusters. As you can see, K=4 again is best. We can look at some summary stuff here which is useful (BIC scores, best K, Population assignment per individual, number of Inds in each population cluster:
+```{r}
+head(grp$Kstat) # BIC scores per k
+grp$stat # Best k based on BIC
+head(grp$grp, 59) # Group membership (based on your defined number of clusters)
+grp$size # Group size per k cluster
+
+x <- as.data.frame(grp$Kstat)
+png(filename="./outputs/DAPC_Results_BIC_scores.png", type="quartz", height=8, width=8, units="in", res=300)
+plot(x$`grp$Kstat`, pch=19, col= "black", cex=0.25, xlab="k clusters", ylab="Bayesian Information Criterion", main = "BIC across k")
+lines(x$`grp$Kstat`, lty=1, lwd=1.5, col='steelblue2')
+dev.off()
+```
+
+
+Now let's do the DAPC. Run the below code. Thsi time choose a lower number of retained PCAs, ideally where the curve starts to become less (e.g. 4 or 5 in this case). Press [enter] and then choose the number of discriminant functions to retain based on the eigenvalues. In this case you want to take all 3, but depends on the information content (F-statistic).
+
+```{r}
+# now do the DAPC
+dapc1 <- dapc(data, grp$grp, n.pca = 5, n.da = 3)
+# same as above, this is usually interactive - the last 2 arguments here have automated this, highly recommended to remove these and do it interactively in R by looking at the resulting plots
+# Advice:
+# number of PCs to retain - now we can be more selective, pick a number where the initial curve of the plot starts to slow (in our case 4 or 5)
+# number of discriminant functions to retain - always more than one - general rule is to take anything which is quite a lot higher than 0, so in this case say 3. If our eigenvalues here showed two big bars and then a very small one we would take 2. More details on how to interpret and select are found here: https://adegenet.r-forge.r-project.org/files/tutorial-dapc.pdf
+
+```
+
+\
+\
+
+### 3. Make DAPC plot of results (< 1 min)
+
+Set some colours and then plot
+```{r}
+myCol <- c("blue","turquoise","lightblue", "darkblue")
+png("./outputs/DAPC_Lflavomaculatus.png",width=500,height=500)
+scatter(dapc1, scree.da=TRUE, scree.pca=TRUE, bg="white", pch=20, cell=0, cstar=0, col=myCol, solid=1, cex=1.5, clab=0, leg=FALSE, txt.leg=paste("Cluster",1:4))
+dev.off()
+```
+
+\
+\
+
+
+### On your own...
+
+If you want to, download PGDspider and try and convert the str file to an FSTAT file (.dat) as I did for you. Or if you want, try converting to other formats (e.g. phy, str etc)
+
+\
+
+Mess around with PCAs retained and number of clusters to see how it affects the BIC values, curves and population assignment. It can be really tricky without good knowledge of true K, especially in not well structured populations. 
+To be able to interactively play with the DAPC results, use the following code instead of the above in step #2:
+
+```{r}
+#grp <- find.clusters(data, max.n.clust=10) 
+```
+
+\
+
+And the following when doing the actual DAPC:
+```{r}
+#dapc1 <- dapc(data, grp$grp)
+```

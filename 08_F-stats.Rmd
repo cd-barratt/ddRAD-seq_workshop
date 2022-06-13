@@ -1,0 +1,64 @@
+---
+title: 'Tutorial: F-statistics'
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
+                      echo=TRUE, warning=FALSE, message=FALSE,
+                      tidy = TRUE, collapse = TRUE,
+                      results = 'hold')
+```
+
+\
+\
+
+### Timings 
+  1. Re-reun populations of Stacks 2 to get FST and nucleotide diversity estimates per population
+  
+All done in EVE cluster
+  
+\
+\
+
+### Objectives
+
+As well as population structure and phylogeny, you probably also want to know population-specific information regarding genetic diversity and genetic differentiation. For this we can simply rerun [populations](https://catchenlab.life.illinois.edu/stacks/comp/populations.php) from Stacks using the --fstats option which will give all kinds of interesting summary statistics about your data based on the population map you supply
+
+\
+
+In this exercise we will use some basic output files from Stacks that I've already processed (again for our treefrog Leptopelis flavomaculatus). We will then calculate pairwise FST between populations and provide specific summary statistics of genetic diversity across populations using Stacks
+
+\
+\
+
+### 1. Run F-stats to calculate genetic diversity and FST
+#This is all done in the EVE cluster, will be fairly quick (ca. 10 mins)
+
+```{r}
+
+### RAxML
+#!/bin/bash                                                                                                                            
+#SBATCH --job-name=RAxML
+#SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
+#SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
+#SBATCH --chdir /data/barratt  
+#SBATCH --output=~/work/ddRAD-seq_workshop/job_logs/%x-%j.log
+#SBATCH --cpus-per-task=1 
+#SBATCH --mem-per-cpu=20G
+#SBATCH --time=3:00:00
+
+## Load modules and activate software
+
+module purge
+module load Anaconda3
+conda activate /gpfs0/global/apps/stacks_2.61
+
+
+XXX
+populations -popmap = outputs
+
+```
+

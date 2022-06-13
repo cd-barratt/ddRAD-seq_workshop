@@ -1,0 +1,141 @@
+---
+title: 'Tutorial: snMF'
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
+                      echo=TRUE, warning=FALSE, message=FALSE,
+                      tidy = TRUE, collapse = TRUE,
+                      results = 'hold')
+```
+\
+\
+
+### Timings 
+
+  1. Load data (< 1 min)
+  2. Run sNMF (3-4 mins)
+  3. Plot CV scores (< 1 min)
+  4. Make barplot of Admixture results (< 1 min)
+
+All done in R locally on your machine
+  
+\
+\
+
+### Objectives
+
+Again, using the same [Leptopelis flavomaculatus](https://amphibiaweb.org/species/3649) data we will try a slightly different but very similar approach to look at population structure. Instead of Admixture we will use [sNMF](http://membres-timc.imag.fr/Olivier.Francois/LEA/tutorial.htm) from the LEA R package this time
+
+\
+\
+
+### 1. Load data
+Load the .ped input file that we will analyse. This is a matrix (rows = number of individual samples, columns = genotypes at each locus). The first 6 columns are mandatory (family, individual, maternal/paternal IDs, Sex abd Phenotype). We actually only have the individual IDs so the others are defaulted out. You can read more about this PLNK, format here: https://zzz.bwh.harvard.edu/plink/data.shtml
+
+```{r}
+# Read in ped file, convert to .geno format needed by LEA package for sNMF
+library(LEA)
+
+data = read.table('/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/sNMF/Lflav.ped')
+output = ped2geno('/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF/Lflav.ped')
+geno <- read.geno('/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF/Lflav.geno') 
+```
+
+\
+\
+
+### 2. Run sNMF
+We can give sNMF a range of K to test, so let's follow 1:10 like we did in Admixture so that we have comparable results. Here we set the ploidy to 2 (diploid organism, having 5 repetitions of each K value to test, so 50 total reps). We set entropy=T and project='new'). There are a bunch of things you can tweak (see here: http://membres-timc.imag.fr/Olivier.Francois/snmf/files/note.pdf) but let's keep this simple. Current settings here will take around 3-4 mins to complete
+
+Block to update:
+```{r}
+# Run snmf to look at structure 
+k_range <- 1:10
+geno.snmf <- snmf(('/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF/Lflav.geno'), K = k_range, entropy = T, ploidy = 2, rep=5, project = 'new')  
+```
+
+\
+\
+
+### 3. Plot CV scores
+We will first set the plot margins and then set an output file (png) with specific sizes and resolutions
+Then we plot the results (first points, then a line to join the points) and save the file
+```{r}
+# plot CV scores
+sumpr2 <- summary(geno.snmf)$crossEntropy
+sumpr <- sumpr2[2,]
+
+par(mar=c(2,2,2,2))
+png(filename="/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF_Results_CV_scores.png", type="quartz", height=8, width=8, units="in", res=300)
+plot(sumpr, lty=2, lwd = 1.5, col = 'black', pch=19, cex=0.5, xlab= 'k clusters', ylab = 'CV score', main= 'Cross validation scores across k (sNMF)')
+lines(sumpr, lwd=2, col='steelblue2')
+dev.off()
+```
+
+\
+\
+
+### 4. Make barplot of sNMF results
+
+We'll first do an automated thing to get the best value of K (which K value and which run of the 5 you made)
+```{r}
+# Choose K with lowest mean cross entropy
+K <- c(1:10)[which.min(sumpr2[2,])]         # K=4
+# Get the cross-entropy of each run for K
+ce <- cross.entropy(species.snmf, K=K)
+# Select the run with the lowest cross-entropy
+best <- which.min(ce)
+best
+```
+
+Next we will take the q values from the sNMF results for the selected K value and run (analagous to the Admixture Lflav.4.Q file). It is a matrix of 59 rows (one per individual) and 4 columns (i.e. K). The probability of membership to each population cluster is shown for each individual
+```{r}
+Q_vals <- Q(geno.snmf, K = K, run = best)
+sample_names <- data[,2]
+pop_assignment <- as.data.frame(cbind(sample_names,Q_vals))
+
+ord = pop_assignment[order(pop_assignment$V4,pop_assignment$V1,pop_assignment$V2,pop_assignment$V3),]
+rownames(ord) <- ord$sample_names
+ord <- ord[,2:5]
+
+par(mar=c(20,4,1,1))
+bp = barplot(t(as.matrix(ord)), space = (0.04), col=c("blue", "turquoise", "darkblue", "lightblue"), xlab="", ylab="Ancestry", border=1, las=2, cex.names=0.9)
+```
+
+The above plot is not so clean, very messy and not very pretty. Let's reorder the output file so that it matches the order of individuals in the Admixture analyses. It can then be plotted for direct and easy comparison.
+```{r}
+# match ord_labels to the pop_assignment
+ord_labels <- read.csv('/Users/cb76kecu/Desktop/ddRAD-seq_workshop/data/Exercises_4-8/sNMF/ord_labels_sNMF.csv')
+ord_labels_sample_name_only <- as.data.frame(ord_labels);colnames(ord_labels_sample_name_only) <- 'sample_name_only'
+ord_labels_sample_name_only <- substr(ord_labels_sample_name_only$sample_name_only, 1, 5)
+ord_labels_sample_name_only <- as.data.frame(ord_labels_sample_name_only)
+ord_labels <- cbind(ord_labels,ord_labels_sample_name_only)
+
+# now sort pop_assignment based on order in ord_labels$sample_name_only
+
+sorted_pop_assignment <- pop_assignment[order(match(pop_assignment[,1],ord_labels_sample_name_only[,1])),]
+row.names(sorted_pop_assignment) <- sorted_pop_assignment$sample_names
+sorted_pop_assignment <- sorted_pop_assignment[,2:5]
+
+# plot the sNMF barplot for comparison with Admixture
+bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col=c("darkblue", "blue", "lightblue", "turquoise"), xlab="", ylab="Ancestry", border=1, las=2, cex.names=0.9)
+
+# save
+png(filename="/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_5/sNMF_Results_Barplot.png", type="quartz", height=8, width=30, units="in", res=300)
+bp = barplot(t(as.matrix(sorted_pop_assignment)), space = (0.04), col=c("darkblue", "blue", "lightblue", "turquoise"), xlab="", ylab="Ancestry", border=1, las=2, cex.names=0.9)
+dev.off()
+
+```
+
+\
+\
+
+### On your own...
+
+If you want, try plotting k=1 - k=5, feel free to change colour schemes and the order of the tbl object
+If you have your own data you can try and use this script to plot your own outputs
