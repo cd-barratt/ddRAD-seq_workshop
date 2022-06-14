@@ -34,7 +34,7 @@ For this exercise we will use [RAxML](https://cme.h-its.org/exelixis/web/softwar
 \
 
 ### 1. Run RAxML
-#This is all done in the EVE cluster, it will take some time - we can reduce the number of bootstrap replicates...
+#This is all done in the EVE cluster, it will take some time - we can reduce the number of bootstrap replicates to 5. You can build your own script or use the supplied one that you can edit (07_RAxML.sh)
 
 ```{r}
 #!/bin/bash                                                                                                                            
@@ -42,7 +42,7 @@ For this exercise we will use [RAxML](https://cme.h-its.org/exelixis/web/softwar
 #SBATCH --job-name=RAxML
 #SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
-#SBATCH --output=/work/barratt/ddRAD-seq_workshop/job_logs/%x-%j.log
+#SBATCH --output=/work/$USER/ddRAD-seq_workshop/job_logs/%x-%j.log
 #SBATCH --cpus-per-task=1 
 #SBATCH --mem-per-cpu=40G
 #SBATCH --time=12:00:00
@@ -52,16 +52,16 @@ module purge
 module load Anaconda3
 source activate /global/apps/raxml_8.2.9
 
-cd ~/work/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/
+cd /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/
 
 # 10 bootstraps
 
 
-raxmlHPC -f a -m GTRCAT -p 12345 -x 12345 -# 5 -s  ~/work/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/Lflav.phy ­­asc­corr=lewis -n bootstrapped 
+raxmlHPC -f a -m GTRCAT -p 12345 -x 12345 -# 5 -s  /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/Lflav.phy ­­asc­corr=lewis -n bootstrapped 
 raxmlHPC -m GTRCAT -p 12345 -f b -t RAxML_bestTree.bootstrapped -z RAxML_bootstrap.bootstrapped -n FINAL_bootstrapped.tre
 
 # move output files to outputs directory
-mv ~/work/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/RAxML*.* ~/work/ddRAD-seq_workshop/outputs/Exercise_7/
+mv /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/RAxML*.* /work/$USER/ddRAD-seq_workshop/outputs/Exercise_7/
 ```
 
 \

@@ -36,7 +36,7 @@ We will run process_radtags on the *Myotis escalerai* data that we downloaded in
 
 ### 1. Run process_radtags
 
-This is all done in the EVE cluster, it will take some time and in the meantime we do other things, but at least it gives you a feel for how you go from sequencer files to individual files
+This is all done in the EVE cluster, it will take some time and in the meantime we do other things, but at least it gives you a feel for how you go from sequencer files to individual files. You can build your own script or use the provided one (02_process_radtags.sh) and modify it to your own details
 
 ```{r}
 #!/bin/bash                                                                                                                            
@@ -44,7 +44,7 @@ This is all done in the EVE cluster, it will take some time and in the meantime 
 #SBATCH --job-name=process_radtags
 #SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
-#SBATCH --output=/work/barratt/ddRAD-seq_workshop/job_logs/%x-%j.log
+#SBATCH --output=/work/$USER/ddRAD-seq_workshop/job_logs/%x-%j.log
 #SBATCH --cpus-per-task=1 
 #SBATCH --mem-per-cpu=8G
 #SBATCH --time=12:00:00
@@ -73,17 +73,17 @@ source activate /gpfs0/global/apps/stacks_2.61
 # -t = truncate final read length to this value.
 
 
-process_radtags -1 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_01_NoIndex_L008_R1_001.fastq.gz -2 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_01_NoIndex_L008_R2_001.fastq.gz -o ~/work/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b ~/work/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_1 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
+process_radtags -1 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_01_NoIndex_L008_R1_001.fastq.gz -2 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_01_NoIndex_L008_R2_001.fastq.gz -o /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_1 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
 
 # You can try it yourself now for barcodes_2, barcodes_3 etc.
 # try changing the restriction enzyme
 # try changing s and t parameters
 # see what happens when getting the inline-inline wrong..
 
-#process_radtags -1 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_02_NoIndex_L005_R1_001.fastq.gz -2 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_02_NoIndex_L005_R2_001.fastq.gz -o ~/work/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b ~/work/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_2 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
-#process_radtags -1 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_03_NoIndex_L004_R1_001.fastq.gz -2 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_03_NoIndex_L004_R2_001.fastq.gz -o ~/work/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b ~/work/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_3 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
-#process_radtags -1 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_04_NoIndex_L005_R1_001.fastq.gz -2 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_04_NoIndex_L005_R2_001.fastq.gz -o ~/work/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b ~/work/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_4 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
-#process_radtags -1 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_05_NoIndex_L006_R1_001.fastq.gz -2 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_05_NoIndex_L006_R2_001.fastq.gz -o ~/work/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b ~/work/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_5 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
+#process_radtags -1 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_02_NoIndex_L005_R1_001.fastq.gz -2 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_02_NoIndex_L005_R2_001.fastq.gz -o /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_2 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
+#process_radtags -1 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_03_NoIndex_L004_R1_001.fastq.gz -2 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_03_NoIndex_L004_R2_001.fastq.gz -o /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_3 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
+#process_radtags -1 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_04_NoIndex_L005_R1_001.fastq.gz -2 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_04_NoIndex_L005_R2_001.fastq.gz -o /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_4 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
+#process_radtags -1 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_05_NoIndex_L006_R1_001.fastq.gz -2 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_05_NoIndex_L006_R2_001.fastq.gz -o /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_5 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
 
 
 
@@ -93,7 +93,7 @@ process_radtags -1 ~/work/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_01_NoInd
 \
 
 ### On your own...  
-If you want to investigate this further at some point you can try it yourself for barcodes_2, barcodes_3, barcodes_4, barcodes_5, barcodes_6 (files are supplied in the ```~/work/ddRAD-seq_workshop/data/Exercises_1-2/``` directory). Each time running process_radtags will search for the individuals identified by the relevant barcodes that you supply.
+If you want to investigate this further at some point you can try it yourself for barcodes_2, barcodes_3, barcodes_4, barcodes_5, barcodes_6 (files are supplied in the ```/work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/``` directory). Each time running process_radtags will search for the individuals identified by the relevant barcodes that you supply.
 
 \
 
