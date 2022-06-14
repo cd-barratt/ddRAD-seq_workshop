@@ -52,7 +52,7 @@ In this exercise we will use some basic output files from Stacks that I've alrea
 
 module purge
 module load Anaconda3
-conda activate /gpfs0/global/apps/stacks_2.61
+source activate /gpfs0/global/apps/stacks_2.61
 
 
 cd ~/work/ddRAD-seq_workshop/data/Exercises_4-8/FST_genetic_diversity/

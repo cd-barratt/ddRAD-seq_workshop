@@ -44,6 +44,8 @@ This is all done in the EVE cluster, you can make your own scripts to do this or
 #SBATCH --mem-per-cpu=50G
 #SBATCH --time=48:00:00
 
+source activate /gpfs0/global/apps/stacks_2.61
+
 LAURA's CLEANED CODE
 ```
 

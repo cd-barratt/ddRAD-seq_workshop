@@ -100,7 +100,7 @@ Set some colours and then plot
 ```{r}
 myCol <- c("blue","turquoise","darkblue", "lightblue")
 png("/Users/cb76kecu/Desktop/ddRAD-seq_workshop/outputs/Exercise_6/DAPC_Lflavomaculatus.png",width=500,height=500)
-scatter(dapc1, scree.da=TRUE, scree.pca=FALSE, bg="white", pch=20, cell=0, cstar=0, col=myCol, solid=1, cex=1.5, clab=0, leg=FALSE, txt.leg=paste("Cluster",1:4))
+scatter(dapc1, scree.da=TRUE, scree.pca=FALSE, bg="white", pch=20, cell=2, cstar=1, col=myCol, solid=1, cex=1.5, clab=0, leg=TRUE, txt.leg=paste("Cluster",1:4))
 dev.off()
 ```
 
@@ -114,8 +114,7 @@ If you want to, download PGDspider and try and convert the str file to an FSTAT 
 
 \
 
-Mess around with PCAs retained and number of clusters to see how it affects the BIC values, curves and population assignment. It can be really tricky without good knowledge of true K, especially in not well structured populations. 
-To be able to interactively play with the DAPC results, use the following code instead of the above in step #2 (remove the # at the start)
+Play around with PCAs retained and number of clusters to see how it affects the BIC values, curves and population assignment. It can be really tricky without good knowledge of true K, especially in not well structured populations. To be able to interactively play with the DAPC results, use the following code instead of the above in step #2 (remove the # at the start)
 
 ```{r}
 #grp <- find.clusters(data, max.n.clust=10) 

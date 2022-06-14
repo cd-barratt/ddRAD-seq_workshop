@@ -29,7 +29,7 @@ All done in R locally on your machine
 
 ### Objectives
 
-Again, using the same [Leptopelis flavomaculatus](https://amphibiaweb.org/species/3649) data we will try a slightly different but very similar approach to look at population structure. Instead of Admixture we will use [sNMF](http://membres-timc.imag.fr/Olivier.Francois/LEA/tutorial.htm) from the LEA R package this time
+Again, using the same [*Leptopelis flavomaculatus*](https://amphibiaweb.org/species/3649) data we will try a slightly different but very similar approach to look at population structure. Instead of Admixture we will use [sNMF](http://membres-timc.imag.fr/Olivier.Francois/LEA/tutorial.htm) from the LEA R package this time
 
 \
 \

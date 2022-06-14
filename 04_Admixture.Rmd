@@ -38,41 +38,44 @@ For this exercise in particular using [Admixture](https://dalexander.github.io/a
 \
 
 ### 1. Run Admixture (on the EVE cluster)
-#This is all done in the EVE cluster, you can make your own scripts to do this or use the one provided #(run_Admixture.sh). It can be submitted via sbatch in the EVE cluster, but be sure to modify the email address #and output paths to your own details.
+#This is all done in the EVE cluster, you can make your own scripts to do this or use the one provided (04_Admixture.sh). It can be submitted via sbatch in the EVE cluster, but be sure to modify the email address and output paths to your own details.
 
 ```{r}
 #!/bin/bash                                                                                                                            
+
 #SBATCH --job-name=Admixture
 #SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
-#SBATCH --output=~/work/ddRAD-seq_workshop/job_logs/%x-%j.log
+#SBATCH --output=/work/barratt/ddRAD-seq_workshop/job_logs/%x-%j.log
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=15G
-#SBATCH --time=4:00:00
+#SBATCH --time=2:00:00
 
+ 
 #load environment
 module purge
 module load Anaconda3
-conda activate /global/apps/plink_1.90
+source activate /global/apps/plink_1.90
+
 
 # Converting ped and map files to bed format for Admixture
-plink --file ~/work/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/Lflav.ped --make-bed --recode --out ~/work/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/Lflav
+plink --file ~/work/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/Lflav --make-bed --recode --out ~/work/ddRAD-seq_workshop/outputs/Exercise_4/
 
 #run admixture
-cd ~/work/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/
+cd ~/work/ddRAD-seq_workshop/outputs/Exercise_4/
 bash
-conda activate /gpfs0/global/apps/stacks_2.61
+source activate /gpfs0/global/apps/admixture_1.3.0
 for K in 1 2 3 4 5 6 7 8 9 10; \
 do admixture --cv=10 ./Lflav.bed $K| tee log_Lflav.${K}.out; done
 
 # grep to combine all results
-grep -h CV log_Lflav*.out > ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture.txt
+grep -h CV log_Lflav*.out > ./RESULTS_Leptopelis_flavomaculatus_admixture.txt
 
 #sed to clean results for later analysis
-sed -e 's/CV error (K=//g' ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture.txt | sed 's/)://g' > ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt
+sed -e 's/CV error (K=//g' ./RESULTS_Leptopelis_flavomaculatus_admixture.txt | sed 's/)://g' > ./RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt
 
 # replace all single digit numbers to begin with 0s for numerical sorting
-sed -e 's/1 /01 /g' ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt \
+sed -e 's/1 /01 /g' ./RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt \
 | sed -e 's/2 /02 /g' \
 | sed -e 's/3 /03 /g' \
 | sed -e 's/4 /04 /g' \
@@ -83,13 +86,13 @@ sed -e 's/1 /01 /g' ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptope
 | sed -e 's/9 /09 /g'> ./tmp.txt\
 
 # sort output file (01-10) and remove old temporary one
-sort ./tmp.txt > ~/work/ddRAD-seq_workshop/outputs/Exercise_4/RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt
+sort ./tmp.txt > ./RESULTS_Leptopelis_flavomaculatus_admixture_clean.txt
 rm -rf ./tmp.txt
 ```
 
 \
 
-When the Admixture job is complete we need to copy the output files to our desktop. We can use Cyberduck/FileZilla for this (I'll show you), or we can use [rsync](https://wiki.ufz.de/eve/index.php/File_Transfer). To use rsync open up another version of your Terminal/PuTTy and type the following:
+When the Admixture job is complete we need to copy the output files to our desktop. We can use Cyberduck/FileZilla for this (I'll show you), or we can use [rsync](https://wiki.ufz.de/eve/index.php/File_Transfer). To use rsync open up another version of your Terminal/PuTTy and type the following (edited to match your account details and local desktop path):
 
 ```{r}
 # transfer from the cluster
@@ -128,7 +131,7 @@ Because this dataset is for relatively highly structured (low-dispersal) amphibi
 \
 
 ### 4. Make barplot of Admixture results
-Now that we know the optimal value of K we can plot the Admixture coefficients across all of our samples (n=59 in this case). We'll read the Lflav.4.Q output file from Admixture and order it to make it look nicer. We'll then plot it, add individual labels for each sample and then save the final plot.
+Now that we know the optimal value of K we can plot the Admixture coefficients across all of our samples (n=59 in this case). We'll read the Lflav.4.Q output file from Admixture and order it to make it look nicer. Each .Q file is a prediction of population membership per individual across the given number of clusters you decieded to test when running Admixture (i.e. 1:10). In the case of Lflav.4.Q It is a matrix of 59 rows (one per individual) and 4 columns (i.e. K=4). The probability of membership to each population cluster is shown for each individual. We'll then plot it, add individual labels for each sample and then save the final plot.
 
 ```{r}
 # plot bars
