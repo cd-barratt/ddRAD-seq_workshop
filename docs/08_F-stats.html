@@ -323,7 +323,7 @@ $(document).ready(function () {
 <p>As well as population structure and phylogeny, you probably also want to know population-specific information regarding genetic diversity and genetic differentiation. For this we can simply rerun <a href="https://catchenlab.life.illinois.edu/stacks/comp/populations.php">populations</a> from Stacks using the –fstats option which will give all kinds of interesting summary statistics about your data based on the population map you supply</p>
 <p><br />
 </p>
-<p>In this exercise we will use some basic output files from Stacks that I’ve already processed (again for our treefrog Leptopelis flavomaculatus). We will then calculate pairwise FST between populations and provide specific summary statistics of genetic diversity across populations using Stacks</p>
+<p>In this exercise we will use some basic output files from Stacks that I’ve already processed (again for our treefrog <em>Leptopelis flavomaculatus</em>). We will then calculate pairwise FST between populations and provide specific summary statistics of genetic diversity across populations using Stacks</p>
 <p><br />
 <br />
 </p>
@@ -332,7 +332,6 @@ $(document).ready(function () {
 <h3>1. Run populations with –fstats flag to calculate genetic diversity and FST</h3>
 <p>#This is all done in the EVE cluster, will be fairly quick (ca. 10 mins)</p>
 <pre class="r"><code>
-### RAxML
 #!/bin/bash                                                                                                                            
 #SBATCH --job-name=FST_genetic_diversity
 #SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de

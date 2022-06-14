@@ -321,14 +321,14 @@ $(document).ready(function () {
 </div>
 <div id="objectives" class="section level3">
 <h3>Objectives</h3>
-<p>This exercise will show you how to run denovo_map from start to finish (assuming that you have demultiplexed data after running process_radtags). For this exercise we will use some already processed data for Hyphaene coriacea, a palm species from Madagascar. We’ll then check the quality of the output files using VCFtools.</p>
+<p>This exercise will show you how to run denovo_map in Stacks from start to finish (assuming that you have demultiplexed data after running process_radtags). For this exercise we will use some already processed data for <em>Hyphaene coriacea</em>, a palm species occurring on Madagascar. We’ll then check the quality of the output files using VCFtools.</p>
 <p><br />
 <br />
 </p>
 </div>
 <div id="run-denovo_map" class="section level3">
 <h3>1. Run denovo_map</h3>
-<p>This is all done in the EVE cluster, you can make your own scripts to do this or use the one provided (run_Admixture.sh). It can be submitted via sbatch in the EVE cluster, but be sure to modify the email address and output paths to your own details</p>
+<p>This is all done in the EVE cluster, you can make your own scripts to do this or use the one provided (run_denovo_map.sh). It can be submitted via sbatch in the EVE cluster, but be sure to modify the email address and output paths to your own details</p>
 <pre class="r"><code>#!/bin/bash                                                                                                                            
 #SBATCH --job-name=denovo_map
 #SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de

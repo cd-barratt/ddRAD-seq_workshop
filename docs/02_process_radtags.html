@@ -323,7 +323,7 @@ $(document).ready(function () {
 <p>In this exercise we will run <a href="https://catchenlab.life.illinois.edu/stacks/comp/process_radtags.php">process_radtags</a> in Stacks 2 to demultiplex the raw sequence reads from each sequenced library. This will give you the outputs for each individual that you have in the libraries, each identified by the relevant barcodes which you supply using the barcodes file when running process_radtags</p>
 <p><br />
 </p>
-<p>We will run process_radtags on the Myotis escalerai data that we downloaded in Exercise 1, but the process will be the same for any data that you generate yourself (i.e. raw Illumina sequence read files of your libraries)</p>
+<p>We will run process_radtags on the <em>Myotis escalerai</em> data that we downloaded in Exercise 1, but the process will be the same for any data that you generate yourself (i.e. raw Illumina sequence read files of your libraries)</p>
 <p><br />
 <br />
 </p>
@@ -364,10 +364,7 @@ conda activate /gpfs0/global/apps/stacks_2.61
 # -y = output type, either &#39;fastq&#39;, &#39;gzfastq&#39;, &#39;fasta&#39;, or &#39;gzfasta&#39; (default: match input type).
 # -t = truncate final read length to this value.
 
-DATA_PATH=~/work/ddRAD-seq_workshop/data/Exercise_2/
-
-process_radtags -1 $DATA_PATH/raw/BAT_01_NoIndex_L008_R1_001.fastq.gz -2 $DATA_PATH/raw/BAT_01_NoIndex_L008_R2_001.fastq.gz -o $DATA_PATH/demultiplexed/ -b $DATA_PATH/barcodes/barcodes_1 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
-
+DATA_PATH=~/work/ddRAD-seq_workshop/data/Exercise_1/
 
 process_radtags -1 $DATA_PATH/raw/BAT_01_NoIndex_L008_R1_001.fastq.gz -2 $DATA_PATH/raw/BAT_01_NoIndex_L008_R2_001.fastq.gz -o $DATA_PATH/demultiplexed/ -b $DATA_PATH/barcodes/barcodes_1 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
 </code></pre>
@@ -377,10 +374,10 @@ process_radtags -1 $DATA_PATH/raw/BAT_01_NoIndex_L008_R1_001.fastq.gz -2 $DATA_P
 </div>
 <div id="on-your-own" class="section level3">
 <h3>On your own…</h3>
-<p>If you want to investigate this further at some point you can try it yourself now for barcodes_2, barcodes_3, barcodes_4, barcodes_5, barcodes_6 (files in the barcodes directories). Each time running process_radtags will search for the individuals identified by the relevant barcodes that you supply.</p>
+<p>If you want to investigate this further at some point you can try it yourself for barcodes_2, barcodes_3, barcodes_4, barcodes_5, barcodes_6 (files are supplied in the <code>~/work/ddRAD-seq_workshop/data/Exercise_2/</code> directory). Each time running process_radtags will search for the individuals identified by the relevant barcodes that you supply.</p>
 <p><br />
 </p>
-<p>You can also mess around with the restriction enzymes (–renz1, –renz2) and see how these being misspecified for the dataset should result in hardly any data. Same thing with the way the barcodes are read - specifying the wrong combination of indexes (e.g. inline-index). You can also mess around with the s and t parameters for the quality control of the reads you process</p>
+<p>You can also mess around with the restriction enzymes (–renz_1, –renz_2) and see how these being misspecified for the dataset should result in hardly any data. Same thing with the way the barcodes are read - specifying the wrong combination of indexes (e.g. –inline-index). You can also mess around with the s and t parameters for the quality control of the reads you process</p>
 </div>
 
 
