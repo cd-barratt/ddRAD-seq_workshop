@@ -35,8 +35,8 @@ ssh frontend1
 \
 \
 
-### 2. Copy the directory we provide in /public/ to your own workspace (will take a few mins)
-Now we'll copy the directory which is all ready to your own workspace. Ideally it's best practice to have data in a /data/ directory but this will get quite complicated with all of us, so let's keep it simple and store in your own ~/work directories
+### 2. Copy the directory we provide in ```/public/``` to your own workspace (will take a few mins)
+Now we'll copy the directory which is all ready to your own workspace. Ideally it's best practice to have data in a ```/data/``` directory but this will get quite complicated with all of us, so let's keep it simple and store in your own ```~/work``` directories
 ```{r}
 # This line will copy all of the files and directories to your own work space (the ~ symbol )
 cp -r /public/ddRAD-seq_workshop/ ~/work/
@@ -46,7 +46,7 @@ cp -r /public/ddRAD-seq_workshop/ ~/work/
 \
 \
 
-### 3. Move the subfolder 'scripts' from your ~/work/ddRAD-seq_workshop to ~/submit_scripts/dd-RAD-seq_workshop
+### 3. Move the subfolder 'scripts' from your ```~/work/ddRAD-seq_workshop``` to ```~/submit_scripts/dd-RAD-seq_workshop```
 We do however want to make sure that our submit scripts are kept away in a separate folder. 
 If you already have a folder for submitting scripts then you can move it there, otherwise I suggest you make one as follows:
 
@@ -68,7 +68,7 @@ mv -r ~/work/ddRAD-seq_workshop/scripts ~/submit_scripts/ddRAD-seq_workshop/
 
 \
 
-OK, so now you should have a ddRAD-seq_workshop folder in your ~/work directory and another one in your ~/submit_scripts directory. You can check this by navigating around using cd ~/work or cd ~/submit_scripts and using ls to view the subdirectories and files. You can move one directory up simply using cd ../
+OK, so now you should have a ddRAD-seq_workshop folder in your ```~/work``` directory and another one in your ```~/submit_scripts``` directory. You can check this by navigating around using ```cd ~/work``` or ```cd ~/submit_scripts``` and using ```ls``` to view the subdirectories and files. You can move one directory up simply using ```cd ../```
 
 
 \

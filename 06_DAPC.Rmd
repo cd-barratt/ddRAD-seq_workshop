@@ -115,7 +115,7 @@ If you want to, download PGDspider and try and convert the str file to an FSTAT 
 \
 
 Mess around with PCAs retained and number of clusters to see how it affects the BIC values, curves and population assignment. It can be really tricky without good knowledge of true K, especially in not well structured populations. 
-To be able to interactively play with the DAPC results, use the following code instead of the above in step #2:
+To be able to interactively play with the DAPC results, use the following code instead of the above in step #2 (remove the # at the start)
 
 ```{r}
 #grp <- find.clusters(data, max.n.clust=10) 

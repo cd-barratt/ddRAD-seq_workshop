@@ -27,7 +27,7 @@ Step 1 done in EVE cluster, Steps 2-4 done locally on your machines
 
 ### Objectives
 
-For this exercise and the remainder of the workshop we will use some published amphibian data to look at population structure, phylogeny and genetic diversity estimates. The data are for [Leptopelis flavomaculatus](https://amphibiaweb.org/species/3649), a forest tree frog from Tanzania, and were published [here](https://onlinelibrary.wiley.com/doi/full/10.1111/mec.14862).
+For this exercise and the remainder of the workshop we will use some published amphibian data to look at population structure, phylogeny and genetic diversity estimates. The data are for [*Leptopelis flavomaculatus*](https://amphibiaweb.org/species/3649), a forest tree frog from Tanzania, and were published [here](https://onlinelibrary.wiley.com/doi/full/10.1111/mec.14862).
 
 \
 

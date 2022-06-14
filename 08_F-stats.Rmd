@@ -29,7 +29,7 @@ As well as population structure and phylogeny, you probably also want to know po
 
 \
 
-In this exercise we will use some basic output files from Stacks that I've already processed (again for our treefrog Leptopelis flavomaculatus). We will then calculate pairwise FST between populations and provide specific summary statistics of genetic diversity across populations using Stacks
+In this exercise we will use some basic output files from Stacks that I've already processed (again for our treefrog *Leptopelis flavomaculatus*). We will then calculate pairwise FST between populations and provide specific summary statistics of genetic diversity across populations using Stacks
 
 \
 \
@@ -39,7 +39,6 @@ In this exercise we will use some basic output files from Stacks that I've alrea
 
 ```{r}
 
-### RAxML
 #!/bin/bash                                                                                                                            
 #SBATCH --job-name=FST_genetic_diversity
 #SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de

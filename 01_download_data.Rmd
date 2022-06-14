@@ -15,7 +15,7 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
 \
 
 ### Timings 
-  1. Download Myotis escalerai (Escalera's bat) data (ca. 35 min)
+  1. Download *Myotis escalerai* (Escalera's bat) data (ca. 35 min)
   2. un-bzip the files and gzip them so they are ready for Stacks ( ca. 5 min)
   
 All done in EVE cluster
@@ -25,7 +25,20 @@ All done in EVE cluster
 
 ### Objectives
 
-Sometimes you may wish to download some already published data. Here we will download some data from the European Nucleotide Archive for 134 individuals of a European bat species, [Myotis escalarai](https://www.eurobats.org/about_eurobats/protected_bat_species/myotis_escalerai). The data are from paper published a couple of years ago [here](https://www.pnas.org/doi/10.1073/pnas.1820663116).
+Sometimes you may wish to download some already published data. Here we will download some data from the European Nucleotide Archive for individuals of a European bat species, [*Myotis escalarai*](https://www.eurobats.org/about_eurobats/protected_bat_species/myotis_escalerai). The data are from paper published a couple of years ago [here](https://www.pnas.org/doi/10.1073/pnas.1820663116). The raw data are 6 libraries of dd-RADseq data, I have provided the first library for you in the ```/work/ddRAD-seq_workshop/data/Exercise_1/raw/``` folder (BAT_01_NoIndex_L008_R1_001.fastq.gz, BAT_01_NoIndex_L008_R2_001.fastq.gz). Because these are paired-end sequencing data, For each library there are 2 files - a forward reads file (R1) and a reverse reads file (R2). They need to be downloaded and then un-bzipped and gzipped, as this is the format that Stacks needs.
+
+\
+Try and download one or two of the following remaining libraries (both R1 and R2 files) to practice yourself:
+
+BAT_02_NoIndex_L005_R1_001.fastq.gz\
+BAT_02_NoIndex_L005_R2_001.fastq.gz\
+BAT_03_NoIndex_L004_R1_001.fastq.gz\
+BAT_03_NoIndex_L004_R2_001.fastq.gz\
+BAT_04_NoIndex_L005_R1_001.fastq.gz\
+BAT_04_NoIndex_L005_R2_001.fastq.gz\
+BAT_05_NoIndex_L006_R1_001.fastq.gz\
+BAT_05_NoIndex_L006_R2_001.fastq.gz\
+
 
 \
 \
@@ -53,8 +66,8 @@ cd ./raw
 # Myotis escalerai bat data example download == 134 inds ddRADseq Paired end sequenced data, sbfI and nlaIII enzymes. Barcodes are inline inline adapters
 
 #https://www.ebi.ac.uk/ena/browser/text-search?query=PRJEB29086
-wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR283/ERR2832479/BAT_01_NoIndex_L008_R1_001.fastq.bz2
-wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR283/ERR2832479/BAT_01_NoIndex_L008_R2_001.fastq.bz2
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR283/ERR2832479/BAT_02_NoIndex_L005_R1_001.fastq.bz2
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR283/ERR2832479/BAT_02_NoIndex_L005_R2_001.fastq.bz2
 
 # these are bzip2ed, so need to be unzipped and then gzipped for Stacks
 ml GCCcore/10.2.0
