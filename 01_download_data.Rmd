@@ -48,6 +48,12 @@ BAT_05_NoIndex_L006_R2_001.fastq.gz\
 
 This is all done in the EVE cluster. As with all of the EVE work we will do, it can be submitted via sbatch using the script template (01_download_data.sh) we provide, but be sure to modify the email address and output paths to match your own details.
 
+In the script headers (here and in all other scripts used in EVE): 
+
+* Always change $USER in all scripts to your own username (the one you login with)
+* Always change the christopher_david.barratt@uni-leipzig.de to your own email 
+
+\
 
 ```{r}
 #!/bin/bash       
