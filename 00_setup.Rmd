@@ -62,7 +62,7 @@ mkdir /home/$USER/submit_scripts/ddRAD-seq_workshop
 And then move the files as follows:
 ```{r}
 # This line will move scripts to your own submit_scripts directory
-mv -r /work/$USER/ddRAD-seq_workshop/scripts /home/$USER/submit_scripts/ddRAD-seq_workshop/
+mv /work/$USER/ddRAD-seq_workshop/scripts /home/$USER/submit_scripts/ddRAD-seq_workshop/
 
 ```
 
