@@ -340,6 +340,13 @@ BAT_05_NoIndex_L006_R2_001.fastq.gz<br />
 <div id="download-ena-data-and-get-them-in-correct-format-for-stacks" class="section level3">
 <h3>1. Download ENA data and get them in correct format for Stacks</h3>
 <p>This is all done in the EVE cluster. As with all of the EVE work we will do, it can be submitted via sbatch using the script template (01_download_data.sh) we provide, but be sure to modify the email address and output paths to match your own details.</p>
+<p>In the script headers (here and in all other scripts used in EVE):</p>
+<ul>
+<li>Always change $USER in all scripts to your own username (the one you login with)</li>
+<li>Always change the <a href="mailto:christopher_david.barratt@uni-leipzig.de" class="email">christopher_david.barratt@uni-leipzig.de</a> to your own email</li>
+</ul>
+<p><br />
+</p>
 <pre class="r"><code>#!/bin/bash       
                                                                                                                      
 #SBATCH --job-name=download_ENA_data
