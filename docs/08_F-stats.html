@@ -381,6 +381,15 @@ mv /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/FST_genetic_diversity/Lflav
 </ul>
 <p><br />
 </p>
+<p>Let’s run rsync again to pull in the files from what we just ran into our desktop directory:</p>
+<p><br />
+</p>
+<pre class="r"><code># transfer from the cluster
+rsync -avhP -e &#39;ssh -p 8022&#39; \
+  barratt@localhost:/work/$USER/ddRAD-seq_workshop \
+  /Users/cb76kecu/Desktop</code></pre>
+<p><br />
+</p>
 <div id="genetic-diveristy-and-inbreeding-statistics-per-population" class="section level4">
 <h4>Genetic diveristy and inbreeding statistics per population</h4>
 <p>We’ll first focus on the SNP-based measures using the <code>{r}populations.sumstats_summary.tsv</code> file:</p>

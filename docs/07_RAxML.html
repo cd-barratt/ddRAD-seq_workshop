@@ -361,6 +361,16 @@ mv /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/RAxML*.* /work/$USER/
 </div>
 <div id="visualise-the-tree" class="section level3">
 <h3>Visualise the tree</h3>
+<p>First we can run rsync again to pull in the files from RAxML into our desktop directory:</p>
+<p><br />
+</p>
+<pre class="r"><code># transfer from the cluster
+rsync -avhP -e &#39;ssh -p 8022&#39; \
+  barratt@localhost:/work/$USER/ddRAD-seq_workshop \
+  /Users/cb76kecu/Desktop</code></pre>
+<p><br />
+</p>
+<p>Then…</p>
 <ul>
 <li><p>Download and install <a href="https://www.softpedia.com/dyn-postdownload.php/e272921fefc6c686b1fa2b06df64a860/62a88e68/2a33f/4/1">Figtree</a> on your computer.</p></li>
 <li><p>Rsync the files from the EVE cluster back to your own computer again</p></li>
