@@ -100,8 +100,17 @@ Rochette et al. 2019. [Stacks 2: Analytical methods for paired-end sequencing im
 
 Paris et al. 2017. [Lost in parameter space: a road map for stacks](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.12775)
 
+Rochette and Catchen 2017. [Deriving genotypes from RAD-seq short-read data using Stacks](https://www.nature.com/articles/nprot.2017.123)
+
+Cerca et al. 2021. [Removing the bad apples: A simple bioinformatic method to improve loci-recovery in de novo RADseq data for non-model organisms](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13562)
+
+\
+\
+
+### Datasets
+
 Barratt et al. 2018. [Vanishing refuge? Testing the forest refuge hypothesis in coastal East Africa using genome-wide sequence data for seven amphibians](https://onlinelibrary.wiley.com/doi/full/10.1111/mec.14862)
 
+Razgour et al. 2019. [Considering adaptive genetic variation in climate change vulnerability assessment reduces species range loss projections](https://www.pnas.org/doi/10.1073/pnas.1820663116)
 
-
-
+Mendez et al. (in prep)
