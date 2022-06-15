@@ -67,7 +67,24 @@ mv /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/RAxML*.* /work/$USER/
 \
 \
 
+
+
 ### Visualise the tree
+
+First we can run rsync again to pull in the files from RAxML into our desktop directory:
+
+\
+
+```{r}
+# transfer from the cluster
+rsync -avhP -e 'ssh -p 8022' \
+  barratt@localhost:/work/$USER/ddRAD-seq_workshop \
+  /Users/cb76kecu/Desktop
+```
+
+\
+
+Then...
 
 * Download and install [Figtree](https://www.softpedia.com/dyn-postdownload.php/e272921fefc6c686b1fa2b06df64a860/62a88e68/2a33f/4/1) on your computer. 
 

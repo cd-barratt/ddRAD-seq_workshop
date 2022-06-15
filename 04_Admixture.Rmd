@@ -150,6 +150,7 @@ dev.off()
 \
 \
 
+
 ### On your own...
 
 If you want, try plotting k=1 - k=5, feel free to change colour schemes and the order of the tbl object. You can also edit the CV validation method t be --cv=5 for example when running Admixture. If you have your own data you can try and use this script to run Admixture and then plot your own outputs
