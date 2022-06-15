@@ -59,7 +59,7 @@ source activate /global/apps/plink_1.90
 
 
 # Converting ped and map files to bed format for Admixture
-plink --file /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/Lflav --make-bed --recode --out /work/$USER/ddRAD-seq_workshop/outputs/Exercise_4/
+plink --file /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/Admixture/Lflav --make-bed --recode --out /work/$USER/ddRAD-seq_workshop/outputs/Exercise_4/Lflav
 
 #run admixture
 cd /work/$USER/ddRAD-seq_workshop/outputs/Exercise_4/
