@@ -92,10 +92,10 @@ do
 done
 
 ## Load modules and activate software
-
+module purge
 module load Anaconda3
-source activate /data/Popgen/programs/stacks-2.53
-
+source activate /global/apps/stacks_2.61/
+  
 # denovo_map.pl - it will execute the Stacks pipeline by running each of the Stacks components #individually: ustacks, cstacks, sstacks, tsv2bam, gstacks and populations. 
 # We are doing this to select the parameters M (ustacks) and n (cstacks) which optimal value depends #on the amount of genetic diversity within the species and on the quality of the raw data as well. 
 # This is done with only a subset of samples from all the populations. This subset is written in the #test.popmap files and therefore Stacks will only run the analyses over those samples specified. We will #vary M and n (M=n) from 1 to 9, and set m = 3.   
@@ -157,9 +157,10 @@ WORK_DIR="/work/$USER/ddRAD-seq_workshop/output/Exercise_3/test.denovo"
 
 ## Load modules and activate software
 
+module purge
 module load Anaconda3
-source activate /data/Popgen/programs/stacks-2.53
-
+source activate /global/apps/stacks_2.61/
+  
 cd "$WORK_DIR" || exit 
 mkdir "$WORK_DIR/results"
 
@@ -226,9 +227,10 @@ mkdir "$out_dir"
 
 ## Load modules and activate software
 
+module purge
 module load Anaconda3
-source activate /data/Popgen/programs/stacks-2.53
-
+source activate /global/apps/stacks_2.61/
+  
 # denovo_map.pl - it will execute the Stacks pipeline by running each of the Stacks components individually: ustacks, cstacks, sstacks, tsv2bam, gstacks and populations. 
 # We are doing this to select the parameters M (ustacks) and n (cstacks) which optimal value depends on the amount of genetic diversity within the species and with the quality of the raw data as well. 
 # Therefore this has to be done with every species separately, with only a subset of samples from all the populations. This subset is written in the test.popmap files and therefore Stacks will only 
@@ -398,9 +400,10 @@ log_file="$out_dir"/populations.oe
 
 ## Load modules and activate software
 
+module purge
 module load Anaconda3
-source activate /data/Popgen/programs/stacks-2.53
-
+source activate /global/apps/stacks_2.61/
+  
 # populations - it will analyze a population of individual samples computing a number of population genetics statistics 
 # as well as exporting a variety of standard output formats. A population map specifying which individuals belong to which 
 # population is submitted to the program and the program will then calculate population genetics statistics such as expected/observed 
