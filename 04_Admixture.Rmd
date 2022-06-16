@@ -97,7 +97,7 @@ When the Admixture job is complete we need to copy the output files to our deskt
 ```{r}
 # transfer from the cluster
 rsync -avhP -e 'ssh -p 8022' \
-  barratt@localhost:/work/$USER/ddRAD-seq_workshop \
+  barratt@localhost:/work/$USER/ddRAD-seq_workshop/outputs/ \
   /Users/cb76kecu/Desktop
 ```
 

@@ -96,8 +96,9 @@ Let's run rsync again to pull in the files from what we just ran into our deskto
 ```{r}
 # transfer from the cluster
 rsync -avhP -e 'ssh -p 8022' \
-  barratt@localhost:/work/$USER/ddRAD-seq_workshop \
+  barratt@localhost:/work/$USER/ddRAD-seq_workshop/outputs/ \
   /Users/cb76kecu/Desktop
+
 ```
 
 \
