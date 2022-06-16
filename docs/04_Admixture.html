@@ -386,7 +386,7 @@ rm -rf ./tmp.txt</code></pre>
 <p>When the Admixture job is complete we need to copy the output files to our desktop. We can use Cyberduck/FileZilla for this (I’ll show you), or we can use <a href="https://wiki.ufz.de/eve/index.php/File_Transfer">rsync</a>. To use rsync open up another version of your Terminal/PuTTy and type the following (edited to match your account details and local desktop path):</p>
 <pre class="r"><code># transfer from the cluster
 rsync -avhP -e &#39;ssh -p 8022&#39; \
-  barratt@localhost:/work/$USER/ddRAD-seq_workshop \
+  barratt@localhost:/work/$USER/ddRAD-seq_workshop/outputs/ \
   /Users/cb76kecu/Desktop</code></pre>
 <p><br />
 </p>
