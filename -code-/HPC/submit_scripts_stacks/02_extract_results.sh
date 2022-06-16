@@ -12,7 +12,7 @@
 
 M_values="1 2 3 4 5 6 7 8 9"
 
-WORK_DIR="/work/$USER/ddRAD-seq_workshop/outputs/Exercise_3/test.denovo"
+WORK_DIR="/work/%u/ddRAD-seq_workshop/outputs/Exercise_3/test.denovo"
 
 ## Load modules and activate software
 

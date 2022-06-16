@@ -5,9 +5,9 @@
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT  
 #SBATCH --output=/work/%u/%x-%j.out
 #SBATCH --error=/work/%u/%x-%j.err 
-#SBATCH --cpus-per-task=20 
+#SBATCH --cpus-per-task=8 
 #SBATCH --mem-per-cpu=8G
-#SBATCH -t 48:00:00
+#SBATCH -t 12:00:00
 
 # Set the requested number of cores to the number of Threads your app should use
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
@@ -16,11 +16,11 @@ export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
 
 M=YOURM
 
-WORK_DIR="/work/$USER/ddRAD-seq_workshop"
-popmap="/work/$USER/ddRAD-seq_workshop/data/Exercise_3/popmaps/popmap6.txt"
+WORK_DIR="/work/%u/ddRAD-seq_workshop"
+popmap="/work/%u/ddRAD-seq_workshop/data/Exercise_3/popmaps/popmap6.txt"
 
 out_dir="$WORK_DIR/outputs/Exercise_3/stacks.denovo"
-reads_dir="$WORK_DIR/data/Exercise_3/demultiplexed_data/HC"
+reads_dir="$WORK_DIR/data/Exercise_3/demultiplexed_data/HC6"
 log_file="$out_dir"/denovo_map.oe
 
 mkdir "$out_dir"

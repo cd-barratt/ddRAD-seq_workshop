@@ -5,22 +5,22 @@
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT   
 #SBATCH --output=/work/%u/%x-%j.out
 #SBATCH --error=/work/%u/%x-%j.err  
-#SBATCH --cpus-per-task=14 
+#SBATCH --cpus-per-task=4 
 #SBATCH --mem-per-cpu=6G
-#SBATCH -t 48:00:00
+#SBATCH -t 02:00:00
 
 # Set the requested number of cores to the number of Threads your app should use
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
 
 # Paths and filenames for this analysis
  
-WORK_DIR="/work/$USER/ddRAD-seq_workshop"
+WORK_DIR="/work/%u/ddRAD-seq_workshop"
 
 out_dir="$WORK_DIR/outputs/Exercise_3/stacks.denovo/populations.singleSNP.r075.m5.maf005.het07"
 cd "$WORK_DIR" || exit 
 mkdir "$out_dir"
 vcf_dir="$WORK_DIR/outputs/Exercise_3/stacks.denovo/VCFtools/filtered.m5-100_miss0.50_2alleles.recode.vcf"
-popmap="/work/$USER/ddRAD-seq_workshop/data/Exercise_3/popmaps/popmap6.txt"
+popmap="/work/%u/ddRAD-seq_workshop/data/Exercise_3/popmaps/popmap6.txt"
 log_file="$out_dir"/populations.oe
 
 

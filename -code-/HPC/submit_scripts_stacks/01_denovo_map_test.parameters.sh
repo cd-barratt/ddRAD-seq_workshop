@@ -5,9 +5,9 @@
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
 #SBATCH --output=/work/%u/%x-%j.out
 #SBATCH --error=/work/%u/%x-%j.err 
-#SBATCH --cpus-per-task=20 
-#SBATCH --mem-per-cpu=8G
-#SBATCH -t 48:00:00
+#SBATCH --cpus-per-task=4 
+#SBATCH --mem-per-cpu=4G
+#SBATCH -t 12:00:00
 
 # Set the requested number of cores to the number of Threads your app should use
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
@@ -16,7 +16,7 @@ export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
 
 M_values="1 2 3 4 5 6 7 8 9"
 
-WORK_DIR="/work/$USER/ddRAD-seq_workshop"
+WORK_DIR="/work/%u/ddRAD-seq_workshop"
 popmap="$WORK_DIR/data/Exercise_3/popmaps/test.popmap.txt"
 OUT_DIR="$WORK_DIR/outputs/Exercise_3/test.denovo"
 
@@ -60,7 +60,7 @@ source activate /gpfs0/global/apps/stacks_2.61
 for M in $M_values 
 do
 	out_dir="$OUT_DIR/stacks.M$M"
-	reads_dir="$WORK_DIR/data/Exercise_3/demultiplexed_data/HC"
+	reads_dir="$WORK_DIR/data/Exercise_3/demultiplexed_data/HC6"
     log_file="$out_dir"/denovo_map.oe
 	denovo_map.pl --samples "$reads_dir" --popmap "$popmap" -o "$out_dir" -T "$SLURM_CPUS_PER_TASK" -M "$M" -n "$M" -m 3 --paired &> "$log_file"
 done

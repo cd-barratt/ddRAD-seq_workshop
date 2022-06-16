@@ -6,11 +6,11 @@
 #SBATCH --output=/work/%u/%x-%j.out
 #SBATCH --error=/work/%u/%x-%j.err  
 #SBATCH --mem-per-cpu=4G
-#SBATCH -t 48:00:00
+#SBATCH -t 02:00:00
 
 # Paths and filenames for this analysis
 
-WORK_DIR="/work/$USER/ddRAD-seq_workshop"
+WORK_DIR="/work/%u/ddRAD-seq_workshop"
 
 out_dir="$WORK_DIR/outputs/Exercise_3/stacks.denovo/VCFtools"
 
