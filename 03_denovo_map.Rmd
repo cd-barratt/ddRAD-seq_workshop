@@ -117,7 +117,7 @@ source activate /global/apps/stacks_2.61/
 for M in $M_values 
 do
 	out_dir="$OUT_DIR/stacks.M$M"
-	reads_dir="$WORK_DIR/data/Exercise_3/demultiplexed_data/HC"
+	reads_dir="$WORK_DIR/data/Exercise_3/demultiplexed_data/HC6"
     	log_file="$out_dir"/denovo_map.oe
 denovo_map.pl --samples "$reads_dir" --popmap "$popmap" -o "$out_dir" -T "$SLURM_CPUS_PER_TASK" -M "$M" -n "$M" -m 3 --paired &> "$log_file"
 done
@@ -219,7 +219,7 @@ WORK_DIR="/work/$USER/ddRAD-seq_workshop"
 popmap="/work/$USER/ddRAD-seq_workshop/data/Exercise_3/popmaps/popmap6.txt"
 
 out_dir="/$WORK_DIR/output/Exercise_3/stacks.denovo"
-reads_dir="$WORK_DIR/data/Exercise_3/demultiplexed_data/HC"
+reads_dir="$WORK_DIR/data/Exercise_3/demultiplexed_data/HC6"
 log_file="$out_dir"/denovo_map.oe
 
 cd "$WORK_DIR" || exit 
