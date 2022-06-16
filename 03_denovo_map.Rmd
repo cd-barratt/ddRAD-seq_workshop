@@ -216,7 +216,7 @@ export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
 
 M=SETYOURM
 WORK_DIR="/work/$USER/ddRAD-seq_workshop"
-popmap="/work/$USER/ddRAD-seq_workshop/data/Exercise_3/popmaps/popmap.txt"
+popmap="/work/$USER/ddRAD-seq_workshop/data/Exercise_3/popmaps/popmap6.txt"
 
 out_dir="/$WORK_DIR/output/Exercise_3/stacks.denovo"
 reads_dir="$WORK_DIR/data/Exercise_3/demultiplexed_data/HC"
