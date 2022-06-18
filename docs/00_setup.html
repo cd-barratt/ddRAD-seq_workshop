@@ -324,12 +324,23 @@ ssh frontend1
 <br />
 </p>
 </div>
-<div id="copy-the-directory-we-provide-in-public-to-your-own-workspace-will-take-a-few-mins" class="section level3">
-<h3>2. Copy the directory we provide in <code>/public/</code> to your own workspace (will take a few mins)</h3>
+<div id="copy-the-directory-we-provide-in-public-to-your-own-workspace-will-take-about-15-mins" class="section level3">
+<h3>2. Copy the directory we provide in <code>/public/</code> to your own workspace (will take about 15 mins)</h3>
 <p>Now we’ll copy the directory which is all ready to your own workspace. Ideally it’s best practice to have data in a <code>/data/</code> directory but this will get quite complicated with all of us, so let’s keep it simple and store in your own <code>/work/$USER/</code> directories</p>
-<pre class="r"><code># This line will copy all of the files and directories to your own work space (the ~ symbol )
-cp -r /public/ddRAD-seq_workshop/ /work/$USER/
+<pre class="r"><code># This line will copy the ddRAD-seq_workshop directory and all files and subdirectories from /public/ddRAD-seq_workshop/ to your own work space
+cp -r /public/ddRAD-seq_workshop /work/$USER
 </code></pre>
+<p><br />
+And we will also edit the submit scripts so that they read and write from your own <code>ddRAD-seq_workshop</code> directory. So copy and edit the following code in a text editor and then paste it into your Terminal/PuTTy. Thsi will replace all instance of $USER and %u with your username and all instances of <a href="mailto:YOUREMAIL@gmail.com" class="email">YOUREMAIL@gmail.com</a> with your email address:</p>
+<ul>
+<li>Change “barratt” to your own user name</li>
+<li>Change <a href="mailto:christopher_david.barratt@idiv.de" class="email">christopher_david.barratt@idiv.de</a> to your own email address</li>
+</ul>
+<pre class="r"><code>cd /work/barratt/ddRAD-seq_workshop
+sed -i &#39;s/$USER/barratt/g&#39; /work/barratt/ddRAD-seq_workshop/scripts/*.*
+sed -i &#39;s/%u/barratt/g&#39; /work/barratt/ddRAD-seq_workshop/scripts/submit_scripts_stacks/*.*
+sed -i &#39;s/YOUREMAIL@gmail.com/christopher_david.barratt@idiv.de/g&#39; /work/barratt/ddRAD-seq_workshop/scripts/*.*
+sed -i &#39;s/YOUREMAIL@gmail.com/christopher_david.barratt@idiv.de/g&#39; /work/barratt/ddRAD-seq_workshop/scripts/submit_scripts_stacks/*.*</code></pre>
 <p><br />
 <br />
 </p>
