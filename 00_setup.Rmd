@@ -35,12 +35,27 @@ ssh frontend1
 \
 \
 
-### 2. Copy the directory we provide in ```/public/``` to your own workspace (will take a few mins)
+### 2. Copy the directory we provide in ```/public/``` to your own workspace (will take about 15 mins)
 Now we'll copy the directory which is all ready to your own workspace. Ideally it's best practice to have data in a ```/data/``` directory but this will get quite complicated with all of us, so let's keep it simple and store in your own ```/work/$USER/``` directories
 ```{r}
-# This line will copy all of the files and directories to your own work space (the ~ symbol )
-cp -r /public/ddRAD-seq_workshop/ /work/$USER/
+# This line will copy the ddRAD-seq_workshop directory and all files and subdirectories from /public/ddRAD-seq_workshop/ to your own work space
+cp -r /public/ddRAD-seq_workshop /work/$USER
 
+```
+
+\
+And we will also edit the submit scripts so that they read and write from your own ```ddRAD-seq_workshop``` directory.
+So copy and edit the following code in a text editor and then paste it into your Terminal/PuTTy. Thsi will replace all instance of $USER and %u with your username and all instances of YOUREMAIL@gmail.com with your email address: 
+
+* Change "barratt" to your own user name
+* Change christopher_david.barratt@idiv.de to your own email address
+
+```{r}
+cd /work/barratt/ddRAD-seq_workshop
+sed -i 's/$USER/barratt/g' /work/barratt/ddRAD-seq_workshop/scripts/*.*
+sed -i 's/%u/barratt/g' /work/barratt/ddRAD-seq_workshop/scripts/submit_scripts_stacks/*.*
+sed -i 's/YOUREMAIL@gmail.com/christopher_david.barratt@idiv.de/g' /work/barratt/ddRAD-seq_workshop/scripts/*.*
+sed -i 's/YOUREMAIL@gmail.com/christopher_david.barratt@idiv.de/g' /work/barratt/ddRAD-seq_workshop/scripts/submit_scripts_stacks/*.*
 ```
 
 \
