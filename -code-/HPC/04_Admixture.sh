@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                            
 
 #SBATCH --job-name=Admixture
-#SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
+#SBATCH --mail-user=YOUREMAIL@gmail.com
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
 #SBATCH --output=/work/$USER/ddRAD-seq_workshop/job_logs/%x-%j.log
 #SBATCH --cpus-per-task=1

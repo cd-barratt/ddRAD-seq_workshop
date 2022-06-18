@@ -7,7 +7,7 @@
 #SBATCH --error=/work/%u/%x-%j.err 
 #SBATCH --cpus-per-task=20 
 #SBATCH --mem-per-cpu=8G
-#SBATCH -t 48:00:00
+#SBATCH -t 24:00:00
 
 # Set the requested number of cores to the number of Threads your app should use
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
@@ -17,7 +17,7 @@ export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
 M_values="1 2 3 4 5 6 7 8 9"
 
 WORK_DIR="/work/$USER/ddRAD-seq_workshop"
-popmap="$WORK_DIR/data/Exercise_3/popmaps/test.popmap.txt"
+popmap="$WORK_DIR/data/Exercise_3/popmaps/popmap6.txt"
 OUT_DIR="$WORK_DIR/outputs/Exercise_3/test.denovo"
 
 mkdir "$OUT_DIR"

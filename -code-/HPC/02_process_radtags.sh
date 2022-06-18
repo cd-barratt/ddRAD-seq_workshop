@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                            
 
 #SBATCH --job-name=process_radtags
-#SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
+#SBATCH --mail-user=YOUREMAIL@gmail.com
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
 #SBATCH --output=/work/$USER/ddRAD-seq_workshop/job_logs/%x-%j.log
 #SBATCH --cpus-per-task=1 
@@ -43,3 +43,5 @@ process_radtags -1 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_01_
 #process_radtags -1 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_03_NoIndex_L004_R1_001.fastq.gz -2 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_03_NoIndex_L004_R2_001.fastq.gz -o /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_3 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
 #process_radtags -1 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_04_NoIndex_L005_R1_001.fastq.gz -2 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_04_NoIndex_L005_R2_001.fastq.gz -o /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_4 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
 #process_radtags -1 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_05_NoIndex_L006_R1_001.fastq.gz -2 /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/raw/BAT_05_NoIndex_L006_R2_001.fastq.gz -o /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/demultiplexed/ -b /work/$USER/ddRAD-seq_workshop/data/Exercises_1-2/barcodes/barcodes_5 --inline_inline --renz_1 sbfI --renz_2 nlaIII -c -q -E phred33 -i gzfastq -y gzfastq --filter_illumina -s 20 -t 90 
+
+

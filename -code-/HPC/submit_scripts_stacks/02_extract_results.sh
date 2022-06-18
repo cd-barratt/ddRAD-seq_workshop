@@ -29,8 +29,8 @@ do
 stacks-dist-extract stacks.M"$M"/populations.r80/populations.log.distribs snps_per_loc_postfilters >> results/M"$M"_snp_distribution.tsv
 cat stacks.M"$M"/populations.r80/populations.sumstats.tsv | grep -v "^#" | cut -f 1 | sort -n | uniq | wc -l >> results/M"$M"_r80.polymorphicLOCI.tsv
 awk 'NR == 6 {print $5}' stacks.M"$M"/populations.r80/populations.sumstats_summary.tsv >> results/M"$M"_r80.polymorphicLOCI_summary.tsv
-cat results/*.polymorphicLOCI.tsv >> results/all.polymorphicLOCI.tsv
-cat  results/*.polymorphicLOCI_summary.tsv > results/all.polymorphicLOCI_summary.tsv
+cat results/*.polymorphicLOCI.tsv >> results/all.polymorphicLOCI.FINAL.tsv
+cat  results/*.polymorphicLOCI_summary.tsv > results/all.polymorphicLOCI_summary.FINAL.tsv
 done
 
 

@@ -6,7 +6,7 @@
 #SBATCH --output=/work/%u/%x-%j.out
 #SBATCH --error=/work/%u/%x-%j.err  
 #SBATCH --mem-per-cpu=4G
-#SBATCH -t 10:00:00
+#SBATCH -t 2:00:00
 
 # Paths and filenames for this analysis
 
@@ -19,7 +19,7 @@ log_file="$out_dir"/plink.oe
 ## Load modules and activate software
 
 module load Anaconda3
-source activate /data/Popgen/programs/plink-1.90
+source activate /gpfs0/global/apps/plink_1.90
 
 
 # PLINK - free open-source toolset to perform a range of basic, large-scale analyses in a computationally efficient manner.

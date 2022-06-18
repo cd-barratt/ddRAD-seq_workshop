@@ -5,9 +5,9 @@
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT   
 #SBATCH --output=/work/%u/%x-%j.out
 #SBATCH --error=/work/%u/%x-%j.err  
-#SBATCH --cpus-per-task=14 
+#SBATCH --cpus-per-task=2 
 #SBATCH --mem-per-cpu=6G
-#SBATCH -t 48:00:00
+#SBATCH -t 2:00:00
 
 # Set the requested number of cores to the number of Threads your app should use
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}
@@ -28,7 +28,7 @@ log_file="$out_dir"/populations.oe
 ## Load modules and activate software
 
 module load Anaconda3
-source activate /data/Popgen/programs/stacks-2.53
+source activate /gpfs0/global/apps/stacks_2.61
 
 # populations - it will analyze a population of individual samples computing a number of population genetics statistics 
 # as well as exporting a variety of standard output formats. A population map specifying which individuals belong to which 

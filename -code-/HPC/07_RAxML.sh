@@ -1,7 +1,7 @@
 #!/bin/bash                                                                                                                            
 
 #SBATCH --job-name=RAxML
-#SBATCH --mail-user=christopher_david.barratt@uni-leipzig.de
+#SBATCH --mail-user=YOUREMAIL@gmail.com
 #SBATCH --mail-type=BEGIN,END,FAIL,TIME_LIMIT
 #SBATCH --output=/work/$USER/ddRAD-seq_workshop/job_logs/%x-%j.log
 #SBATCH --cpus-per-task=1 
@@ -15,10 +15,10 @@ source activate /global/apps/raxml_8.2.9
 
 cd /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/
 
-# 5 bootstraps
+# 10 bootstraps
 
 
-raxmlHPC -f a -m GTRCAT -p 12345 -x 12345 -# 1 -s  /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/Lflav.phy ­­asc­corr=lewis -n bootstrapped 
+raxmlHPC -f a -m GTRCAT -p 12345 -x 12345 -# 5 -s  /work/$USER/ddRAD-seq_workshop/data/Exercises_4-8/RAxML/Lflav.phy ­­asc­corr=lewis -n bootstrapped 
 raxmlHPC -m GTRCAT -p 12345 -f b -t RAxML_bestTree.bootstrapped -z RAxML_bootstrap.bootstrapped -n FINAL_bootstrapped.tre
 
 # move output files to outputs directory
