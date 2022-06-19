@@ -35,7 +35,7 @@ ssh frontend1
 \
 \
 
-### 2. Copy the directory we provide in ```/public/``` to your own workspace (will take about 15 mins)
+### 2. Copy the directory we provide in ```/public/``` to your own workspace (will take about 17 mins)
 Now we'll copy the directory which is all ready to your own workspace. Ideally it's best practice to have data in a ```/data/``` directory but this will get quite complicated with all of us, so let's keep it simple and store in your own ```/work/$USER/``` directories
 ```{r}
 # This line will copy the ddRAD-seq_workshop directory and all files and subdirectories from /public/ddRAD-seq_workshop/ to your own work space

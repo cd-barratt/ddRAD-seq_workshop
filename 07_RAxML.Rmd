@@ -15,7 +15,7 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
 \
 
 ### Timings 
-  1. Run RAxML (ca. 5 min for 5 bootstraps and full MLE search, higher numbers of bootstraps will run exponentially longer)
+  1. Run RAxML (ca. 5 min for 5 bootstraps and full MLE search, higher numbers of bootstraps will run increasingly longer)
   
 All done in EVE cluster
   

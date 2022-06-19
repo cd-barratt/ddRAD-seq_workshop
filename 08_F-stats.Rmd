@@ -16,8 +16,8 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
 \
 
 ### Timings 
-  1. Re-reun populations of Stacks to get FST and nucleotide diversity estimates per population
-  2. Open the file in R to explore the outputs
+  1. Re-reun populations of Stacks to get FST and nucleotide diversity estimates per population (15 min)
+  2. Open the file in R to explore the outputs (2 min)
   
 All done in EVE cluster
   

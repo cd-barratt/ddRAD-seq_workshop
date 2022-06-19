@@ -15,7 +15,8 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
 \
 
 ### Timings 
-  1. Run process_radtags (ca. 3 hours)
+  1. Run process_radtags (ca. 4.5 hours for the 134 samples but can be reduced by reducing the barcodes input file...)
+  
   
 All done in EVE cluster
      

@@ -15,7 +15,7 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
 \
 
 ### Timings 
-  1. Run denovo_map (~15 min)
+  1. Run denovo_map (~45 min)
   1. Exploring the VCF file with VCFtools (~15 min)
 
 All steps done in EVE cluster  
