@@ -99,5 +99,34 @@ install.packages(c('adegenet','LEA','dplyr'))
 ```
 
 
+\
+\
+
+### GENERAL EVE CLUSTER JOB WORK:
+
+General info on EVE (EVE Wiki) is [here](https://wiki.ufz.de/eve/index.php)
+
+To submit a job use ```sbatch [script]``` 
+```{r}
+sbatch 01_download_data.sh
+```
+
+\
+
+To check if a job is running use ```squeue -u [user]```
+
+```{r}
+squeue -u barratt
+```
+
+\
+
+To cancel a job use ```scancel [job_ID]```
+```{r}
+scancel 17567974
+```
+
+
+
 
 
