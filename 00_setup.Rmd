@@ -14,9 +14,76 @@ knitr::opts_chunk$set(fig.width=12, fig.height=8, eval = FALSE,
 \
 \
 
-To get us set up all with files and directory structure that you'll need, let's do the following together in the EVE cluster...
-  
+## Useful information
+
+* Here's a really useful tool for breaking down and interpreting code: [https://explainshell.com/]
+* Here's a speciation genomics workshop by Joana Meier and Mark Ravinet that includes checking for Linkage Disequilibrium (LD): [https://speciationgenomics.github.io/]  
+
 \
+
+### General EVE cluster job work
+
+General info on EVE (EVE Wiki) is [here](https://wiki.ufz.de/eve/index.php)
+
+To submit a job use ```sbatch [script]``` 
+```{r}
+sbatch 01_download_data.sh
+```
+
+\
+
+To check if a job is running use ```squeue -u [user]```
+
+```{r}
+squeue -u barratt
+```
+
+\
+
+To keep an eye on your jobs constantly use ```watch squeue```
+```{r}
+watch squeue
+```
+
+\
+
+To cancel a job use ```scancel [job_ID]```
+```{r}
+scancel 1234567890
+```
+
+\
+\
+
+### Installing software on EVE
+
+You can request software installation on EVE [here](https://wiki.ufz.de/eve/index.php/EasyBuild#Software_requests)
+However, you can also install your own software on /global/apps/ like so by running the commands to cuild conda environments (e.g. Stacks 2.61 shown below)
+
+```{r}
+cd /global/apps/
+module purge
+module load Anaconda3
+conda create --override-channels --channel iuc --channel conda-forge --channel bioconda --channel defaults --prefix stacks_2.61 stacks=2.61
+```
+
+\
+
+You can then load the software you installed like below (e.g. as part of your job submission script):
+```{r}
+module purge
+module load Anaconda3
+source activate /global/apps/stacks_2.61
+```
+
+
+\
+\
+
+## Setup
+
+To get us set up all with files and directory structure that you'll need, let's do the following together in the EVE cluster...
+
 \
 
 ### 1. Login to the EVE cluster
@@ -96,34 +163,6 @@ You can exit the EVE cluster now, and open RStudio in your computer. In the Cons
 # This line will install the required packages
 install.packages(c('adegenet','LEA','dplyr'))
 
-```
-
-
-\
-\
-
-### GENERAL EVE CLUSTER JOB WORK:
-
-General info on EVE (EVE Wiki) is [here](https://wiki.ufz.de/eve/index.php)
-
-To submit a job use ```sbatch [script]``` 
-```{r}
-sbatch 01_download_data.sh
-```
-
-\
-
-To check if a job is running use ```squeue -u [user]```
-
-```{r}
-squeue -u barratt
-```
-
-\
-
-To cancel a job use ```scancel [job_ID]```
-```{r}
-scancel 17567974
 ```
 
 
