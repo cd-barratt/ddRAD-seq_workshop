@@ -40,6 +40,8 @@ For this exercise in particular using [Admixture](https://dalexander.github.io/a
 ### 1. Run Admixture (on the EVE cluster)
 #This is all done in the EVE cluster, you can make your own scripts to do this or use the one provided (04_Admixture.sh). It can be submitted via sbatch in the EVE cluster, but be sure to modify the email address and output paths to your own details.
 
+It's a good idea to  add a random seed generator to admixture calls, e.g. with the ```-s time``` addition to your code which will start the seed based on the current time (so that you always start from a different seed) 
+
 ```{r}
 #!/bin/bash                                                                                                                            
 
