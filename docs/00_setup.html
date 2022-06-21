@@ -308,9 +308,57 @@ $(document).ready(function () {
 <p><br />
 <br />
 </p>
-<p>To get us set up all with files and directory structure that you’ll need, let’s do the following together in the EVE cluster…</p>
+<div id="useful-information" class="section level2">
+<h2>Useful information</h2>
+<ul>
+<li>Here’s a really useful tool for breaking down and interpreting code: [<a href="https://explainshell.com/" class="uri">https://explainshell.com/</a>]</li>
+<li>Here’s a speciation genomics workshop by Joana Meier and Mark Ravinet that includes checking for Linkage Disequilibrium (LD): [<a href="https://speciationgenomics.github.io/" class="uri">https://speciationgenomics.github.io/</a>]</li>
+</ul>
+<p><br />
+</p>
+<div id="general-eve-cluster-job-work" class="section level3">
+<h3>General EVE cluster job work</h3>
+<p>General info on EVE (EVE Wiki) is <a href="https://wiki.ufz.de/eve/index.php">here</a></p>
+<p>To submit a job use <code>sbatch [script]</code></p>
+<pre class="r"><code>sbatch 01_download_data.sh</code></pre>
+<p><br />
+</p>
+<p>To check if a job is running use <code>squeue -u [user]</code></p>
+<pre class="r"><code>squeue -u barratt</code></pre>
+<p><br />
+</p>
+<p>To keep an eye on your jobs constantly use <code>watch squeue</code></p>
+<pre class="r"><code>watch squeue</code></pre>
+<p><br />
+</p>
+<p>To cancel a job use <code>scancel [job_ID]</code></p>
+<pre class="r"><code>scancel 1234567890</code></pre>
 <p><br />
 <br />
+</p>
+</div>
+<div id="installing-software-on-eve" class="section level3">
+<h3>Installing software on EVE</h3>
+<p>You can request software installation on EVE <a href="https://wiki.ufz.de/eve/index.php/EasyBuild#Software_requests">here</a> However, you can also install your own software on /global/apps/ like so by running the commands to cuild conda environments (e.g. Stacks 2.61 shown below)</p>
+<pre class="r"><code>cd /global/apps/
+module purge
+module load Anaconda3
+conda create --override-channels --channel iuc --channel conda-forge --channel bioconda --channel defaults --prefix stacks_2.61 stacks=2.61</code></pre>
+<p><br />
+</p>
+<p>You can then load the software you installed like below (e.g. as part of your job submission script):</p>
+<pre class="r"><code>module purge
+module load Anaconda3
+source activate /global/apps/stacks_2.61</code></pre>
+<p><br />
+<br />
+</p>
+</div>
+</div>
+<div id="setup" class="section level2">
+<h2>Setup</h2>
+<p>To get us set up all with files and directory structure that you’ll need, let’s do the following together in the EVE cluster…</p>
+<p><br />
 </p>
 <div id="login-to-the-eve-cluster" class="section level3">
 <h3>1. Login to the EVE cluster</h3>
@@ -371,23 +419,7 @@ mv /work/$USER/ddRAD-seq_workshop/scripts /home/$USER/submit_scripts/ddRAD-seq_w
 <pre class="r"><code># This line will install the required packages
 install.packages(c(&quot;adegenet&quot;, &quot;LEA&quot;, &quot;dplyr&quot;))
 </code></pre>
-<p><br />
-<br />
-</p>
 </div>
-<div id="general-eve-cluster-job-work" class="section level3">
-<h3>GENERAL EVE CLUSTER JOB WORK:</h3>
-<p>General info on EVE (EVE Wiki) is <a href="https://wiki.ufz.de/eve/index.php">here</a></p>
-<p>To submit a job use <code>sbatch [script]</code></p>
-<pre class="r"><code>sbatch 01_download_data.sh</code></pre>
-<p><br />
-</p>
-<p>To check if a job is running use <code>squeue -u [user]</code></p>
-<pre class="r"><code>squeue -u barratt</code></pre>
-<p><br />
-</p>
-<p>To cancel a job use <code>scancel [job_ID]</code></p>
-<pre class="r"><code>scancel 17567974</code></pre>
 </div>
 
 
