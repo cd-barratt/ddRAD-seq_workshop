@@ -16,6 +16,7 @@ Teachers: [Chris Barratt](https://cd-barratt.github.io/) & [Laura Mendez Cuellar
 [Course summary](https://www.idiv.de/en/ydiv/graduate-school/courses-and-events/estimating-genetic-diversity-and-population-information-from-short-read-ddrad-seq-type-data.html) | 
 [Course website](https://cd-barratt.github.io/ddRAD-seq_workshop/)
 
+All powerpoint slides available [here](https://github.com/cd-barratt/ddRAD-seq_workshop/tree/main/talks)
 \
 
 ### Schedule 
